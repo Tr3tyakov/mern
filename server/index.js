@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
-// app.use('/api', userRouter);
+app.use('/api', userRouter);
 
 async function start() {
   try {

@@ -2,7 +2,7 @@ const Router = require('express');
 const router = new Router();
 const UserController = require('../controllers/userController');
 
-router.post('/registration');
+router.post('/registration', UserController.registration);
 router.post('/login');
 router.get('/logout');
 router.get('/activate/:link');

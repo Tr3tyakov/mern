@@ -1,7 +1,10 @@
 class UserController {
   async registration(req, res, next) {
     try {
-      res.json();
+      const { email, password } = req.body;
+      const userData = await UserService.registration(email, password);
+
+      res.json(userData);
     } catch (e) {
       next(e);
     }
