@@ -1,3 +1,5 @@
+const UserService = require('../services/userServices.js');
+
 class UserController {
   async registration(req, res, next) {
     try {
