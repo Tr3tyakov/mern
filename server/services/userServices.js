@@ -4,6 +4,7 @@ const transportMailer = require('../nodeMailer/userEmail');
 const bcrypt = require('bcrypt');
 const Token = require('../TokenService/userToken');
 const UserDto = require('../DTO/userDto');
+const TokenModel = require('../models/TokenModel');
 
 class UserService {
   async registration(email, password) {
@@ -34,6 +35,7 @@ class UserService {
     }
     const userDto = new UserDto(user);
     const tokens = Token.generateToken(userDto);
+    await TokenModel.create({ user: user._id, refreshToken: tokens.refreshToken });
     return { ...userDto, ...tokens };
   }
 }

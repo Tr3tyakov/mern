@@ -15,6 +15,7 @@ class UserController {
     try {
       const { email, password } = req.body;
       const userData = await UserService.login(email, password);
+      res.cookie('RefreshToken', userData.refreshToken, { httpOnly: true });
       res.json(userData);
     } catch (e) {
       next(e);
