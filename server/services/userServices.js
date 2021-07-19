@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 const uuid = require('uuid');
 const transportMailer = require('../nodeMailer/userEmail');
 const bcrypt = require('bcrypt');
-const Token = require('../TokenService/userToken');
+const TokenService = require('../TokenService/userToken');
 const UserDto = require('../DTO/userDto');
 const TokenModel = require('../models/TokenModel');
 
@@ -27,24 +27,46 @@ class UserService {
   async login(email, password) {
     const user = await User.findOne({ email });
     if (!user) {
-      throw Error('Неправильный логин или пароль1');
+      throw Error('Неправильный логин или пароль');
     }
     const checkPassword = await bcrypt.compare(password, user.password);
     if (!checkPassword) {
-      throw Error('Неправильный логин или пароль2');
+      throw Error('Неправильный логин или пароль');
     }
     const userDto = new UserDto(user);
-    const tokens = Token.generateToken(userDto);
-    await TokenModel.create({ user: user._id, refreshToken: tokens.refreshToken });
+    const tokens = TokenService.generateToken(userDto);
+    await TokenService.refresh(userDto.id, tokens.refreshToken);
+
     return { ...userDto, ...tokens };
   }
   async logout(refreshToken) {
-    const check = await TokenModel.deleteOne({ refreshToken });
+    const check = await TokenService.deleteToken(refreshToken);
     return check;
   }
   async activate(link) {
     const check = await User.findOneAndUpdate({ ActivationLink: link }, { isActiveEmail: true });
     return check;
+  }
+
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw Error('Неправильный токен');
+    }
+    const checkToken = await TokenService.findToken(refreshToken);
+
+    const verify = await TokenService.verifyRefreshToken(refreshToken);
+
+    if (!checkToken || !verify) {
+      throw Error('Ошибка при рефреше токена');
+    }
+
+    const user = await User.findById(checkToken.user);
+    const userDto = new UserDto(user);
+    const tokens = TokenService.generateToken(userDto);
+    console.log(tokens);
+    await TokenService.refresh(userDto.id, tokens.refreshToken);
+
+    return { ...userDto, ...tokens };
   }
 }
 

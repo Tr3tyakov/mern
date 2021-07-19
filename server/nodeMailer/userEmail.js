@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 
 module.exports = async function transportMailer(email, link) {
+  console.log(email, link);
   let transporter = nodemailer.createTransport({
     host: 'smtp.mail.ru',
     port: 465,
