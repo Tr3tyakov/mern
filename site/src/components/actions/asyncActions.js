@@ -10,9 +10,6 @@ export const login = (email, password) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     const userData = await AuthService.login(email, password);
-    if (!userData) {
-      console.log(1);
-    }
     console.log(userData);
     dispatch(setAuth(true));
     localStorage.setItem('Token', userData.data.accessToken);

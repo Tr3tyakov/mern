@@ -1,90 +1,90 @@
 import React from 'react';
 import {
-  Box,
+  AppBar,
   Toolbar,
   IconButton,
-  Container,
-  TextField,
-  Typography,
   Button,
-  AppBar,
+  makeStyles,
+  Modal,
+  Backdrop,
+  Fade,
+  Box,
+  Avatar,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPassword, setEmail } from './components/actions/actions';
-import { registration, login } from './components/actions/asyncActions';
+import MenuIcon from '@material-ui/icons/Menu';
+import Auth from './components/auth/auth';
+import { setModal } from './components/actions/actions';
 
 function App() {
   const dispatch = useDispatch();
-  const { email, password } = useSelector(({ AuthReducer }) => {
+  const { email, password, isAuth, openModal } = useSelector(({ AuthReducer, AuthModal }) => {
     return {
       email: AuthReducer.email,
       password: AuthReducer.password,
+      isAuth: AuthReducer.isAuth,
+
+      openModal: AuthModal.openModal,
     };
   });
+  const useStyles = makeStyles({
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    menuButton: {
+      marginRight: 'auto',
+    },
+    box: {
+      padding: '10px',
+      width: '600px',
+      height: '400px',
+      backgroundColor: 'white',
+      borderRadius: '10px',
+    },
+  });
+  const classes = useStyles();
 
-  const makeRegistration = () => {
-    dispatch(registration(email, password));
+  const handleOpen = () => {
+    dispatch(setModal(true));
   };
-  const makeLogin = () => {
-    dispatch(login(email, password));
+  const handleClose = () => {
+    dispatch(setModal(false));
   };
-
-  const changePassword = (value) => {
-    dispatch(setPassword(value));
-  };
-  const changeEmail = (value) => {
-    dispatch(setEmail(value));
-  };
-
   return (
     <>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit">
+          <IconButton edge="start" color="inherit" className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
+          {isAuth ? (
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          ) : (
+            <Button color="inherit" onClick={handleOpen}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
-      <Container maxWidth="md">
-        <Box
-          display="flex"
-          justifyContent="center"
-          flexDirection="column"
-          alignItems="center"
-          height="100%"
-          margin="50px 0 0 0"
-          borderRadius="10px"
-          padding="10px">
-          <Typography variant="h5" color="primary" gutterBottom>
-            Вход MERN
-          </Typography>
-          <Box component="div" margin="10px 20px">
-            <TextField
-              color="primary"
-              label="Email"
-              variant="filled"
-              value={email}
-              onChange={(e) => changeEmail(e.target.value)}></TextField>
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        className={classes.modal}
+        open={openModal}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}>
+        <Fade in={openModal}>
+          <Box className={classes.box}>
+            <Auth email={email} password={password} />
           </Box>
-          <Box margin="10px 20px">
-            <TextField
-              color="primary"
-              label="Password"
-              variant="filled"
-              value={password}
-              onChange={(e) => changePassword(e.target.value)}></TextField>
-          </Box>
-          <Box width="300px" display="flex" justifyContent="space-between" margin="20px 0">
-            <Button variant="contained" color="primary" onClick={makeLogin}>
-              Войти
-            </Button>
-            <Button variant="contained" color="secondary" onClick={makeRegistration}>
-              Зарегистрироваться
-            </Button>
-          </Box>
-        </Box>
-      </Container>
+        </Fade>
+      </Modal>
     </>
   );
 }
