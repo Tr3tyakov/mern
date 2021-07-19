@@ -42,6 +42,10 @@ class UserService {
     const check = await TokenModel.deleteOne({ refreshToken });
     return check;
   }
+  async activate(link) {
+    const check = await User.findOneAndUpdate({ ActivationLink: link }, { isActiveEmail: true });
+    return check;
+  }
 }
 
 module.exports = new UserService();

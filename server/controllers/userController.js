@@ -33,6 +33,10 @@ class UserController {
   }
   async activate(req, res, next) {
     try {
+      const { link } = req.params;
+      const userData = await UserService.activate(link);
+
+      res.json(link);
     } catch (e) {
       next(e);
     }
