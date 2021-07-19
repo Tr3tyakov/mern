@@ -38,6 +38,10 @@ class UserService {
     await TokenModel.create({ user: user._id, refreshToken: tokens.refreshToken });
     return { ...userDto, ...tokens };
   }
+  async logout(refreshToken) {
+    const check = await TokenModel.deleteOne({ refreshToken });
+    return check;
+  }
 }
 
 module.exports = new UserService();
