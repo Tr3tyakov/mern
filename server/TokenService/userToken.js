@@ -22,11 +22,14 @@ class Token {
       check.refreshToken = refreshToken;
       return check.save();
     }
-
     TokenModel.create({ user: id, refreshToken });
   }
   verifyRefreshToken(refreshToken) {
     const check = jwt.verify(refreshToken, process.env.SECRET_REFRESH_KEY);
+    return check;
+  }
+  verifyAccessToken(accessToken) {
+    const check = jwt.verify(accessToken, process.env.SECRET_ACCESS_KEY);
     return check;
   }
 }
