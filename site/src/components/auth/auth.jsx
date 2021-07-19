@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, TextField, Typography, Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPassword, setEmail } from '../actions/actions';
+import { setPassword, setEmail, setModal } from '../actions/actions';
 import { registration, login } from '../actions/asyncActions';
 
 function Auth({ email, password }) {
@@ -12,6 +12,9 @@ function Auth({ email, password }) {
   };
   const makeLogin = () => {
     dispatch(login(email, password));
+    if (localStorage.getItem('Token')) {
+      dispatch(setModal(false));
+    }
   };
   const changePassword = (value) => {
     dispatch(setPassword(value));
@@ -47,6 +50,7 @@ function Auth({ email, password }) {
               color="primary"
               label="Password"
               variant="filled"
+              type="password"
               value={password}
               onChange={(e) => changePassword(e.target.value)}></TextField>
           </Box>

@@ -10,23 +10,27 @@ import {
   Fade,
   Box,
   Avatar,
+  Menu,
+  MenuItem,
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import MenuIcon from '@material-ui/icons/Menu';
 import Auth from './components/auth/auth';
-import { setModal } from './components/actions/actions';
+import { setModal, setMenu } from './components/actions/actions';
 
 function App() {
   const dispatch = useDispatch();
-  const { email, password, isAuth, openModal } = useSelector(({ AuthReducer, AuthModal }) => {
-    return {
-      email: AuthReducer.email,
-      password: AuthReducer.password,
-      isAuth: AuthReducer.isAuth,
-
-      openModal: AuthModal.openModal,
-    };
-  });
+  const { email, password, isAuth, openModal, openMenu } = useSelector(
+    ({ AuthReducer, AuthModal }) => {
+      return {
+        email: AuthReducer.email,
+        password: AuthReducer.password,
+        isAuth: AuthReducer.isAuth,
+        openMenu: AuthModal.openMenu,
+        openModal: AuthModal.openModal,
+      };
+    },
+  );
   const useStyles = makeStyles({
     modal: {
       display: 'flex',
@@ -43,6 +47,9 @@ function App() {
       backgroundColor: 'white',
       borderRadius: '10px',
     },
+    avatar: {
+      cursor: 'pointer',
+    },
   });
   const classes = useStyles();
 
@@ -52,6 +59,14 @@ function App() {
   const handleClose = () => {
     dispatch(setModal(false));
   };
+
+  const handleClickMenu = (event) => {
+    dispatch(setMenu(event.currentTarget));
+  };
+
+  const handleCloseMenu = () => {
+    dispatch(setMenu(null));
+  };
   return (
     <>
       <AppBar position="static">
@@ -59,8 +74,24 @@ function App() {
           <IconButton edge="start" color="inherit" className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
+          <IconButton edge="start" color="inherit"></IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={openMenu}
+            keepMounted
+            open={Boolean(openMenu)}
+            onClose={handleCloseMenu}>
+            <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+            <MenuItem onClick={handleClickMenu}>Logout</MenuItem>
+          </Menu>
           {isAuth ? (
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar
+              alt="Remy Sharp"
+              src="/static/images/avatar/1.jpg"
+              className={classes.avatar}
+              onClick={handleClickMenu}
+            />
           ) : (
             <Button color="inherit" onClick={handleOpen}>
               Login
