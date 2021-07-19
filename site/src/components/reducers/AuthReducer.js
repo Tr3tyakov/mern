@@ -1,4 +1,4 @@
-import { EMAIL, PASSWORD } from '../actions/action';
+import { EMAIL, PASSWORD, AUTH, LOADING } from '../actions/actions';
 
 const initialState = {
   email: '',
@@ -8,12 +8,15 @@ const initialState = {
 };
 
 export const AuthReducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case EMAIL:
       return { ...state, email: action.payload };
     case PASSWORD:
       return { ...state, password: action.payload };
+    case AUTH:
+      return { ...state, isAuth: action.payload };
+    case LOADING:
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }

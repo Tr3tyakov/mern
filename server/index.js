@@ -8,7 +8,12 @@ const userRouter = require('./routers/userRouter');
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.SITE_URL,
+  }),
+);
 app.use(cookieParser());
 app.use('/api', userRouter);
 

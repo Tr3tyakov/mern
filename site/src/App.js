@@ -11,7 +11,9 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPassword, setEmail } from './components/actions/action';
+import { setPassword, setEmail } from './components/actions/actions';
+import { registration, login } from './components/actions/asyncActions';
+
 function App() {
   const dispatch = useDispatch();
   const { email, password } = useSelector(({ AuthReducer }) => {
@@ -21,12 +23,20 @@ function App() {
     };
   });
 
+  const makeRegistration = () => {
+    dispatch(registration(email, password));
+  };
+  const makeLogin = () => {
+    dispatch(login(email, password));
+  };
+
   const changePassword = (value) => {
     dispatch(setPassword(value));
   };
   const changeEmail = (value) => {
     dispatch(setEmail(value));
   };
+
   return (
     <>
       <AppBar position="static">
@@ -53,7 +63,6 @@ function App() {
             <TextField
               color="primary"
               label="Email"
-              color="primary"
               variant="filled"
               value={email}
               onChange={(e) => changeEmail(e.target.value)}></TextField>
@@ -62,16 +71,15 @@ function App() {
             <TextField
               color="primary"
               label="Password"
-              color="primary"
               variant="filled"
               value={password}
               onChange={(e) => changePassword(e.target.value)}></TextField>
           </Box>
           <Box width="300px" display="flex" justifyContent="space-between" margin="20px 0">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={makeLogin}>
               Войти
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" onClick={makeRegistration}>
               Зарегистрироваться
             </Button>
           </Box>
