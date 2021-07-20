@@ -8,7 +8,7 @@ export default class AuthServices {
   static async login(email, password) {
     return api.post('/login', { email, password });
   }
-  static async logout(email, password) {
-    return axios.post(`${URL}/logout`, { email, password });
+  static async logout() {
+    return axios.get(`${URL}/logout`, { withCredentials: true });
   }
 }

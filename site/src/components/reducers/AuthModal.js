@@ -1,4 +1,4 @@
-import { MODAL, MENU } from '../actions/actions';
+import { MODAL, MENU } from './constants/constants';
 
 const initialState = {
   openModal: false,

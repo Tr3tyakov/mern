@@ -15,8 +15,9 @@ import {
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import MenuIcon from '@material-ui/icons/Menu';
-import Auth from './components/auth/auth';
-import { setModal, setMenu } from './components/actions/actions';
+import { setModal, setMenu } from './components/reducers/actions/actions';
+import { logout } from './components/reducers/actions/asyncActions';
+import Auth from './components/pages/auth/auth';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ function App() {
     },
   });
   const classes = useStyles();
-
+  //modal authorization
   const handleOpen = () => {
     dispatch(setModal(true));
   };
@@ -60,13 +61,19 @@ function App() {
     dispatch(setModal(false));
   };
 
+  //menu user avatar
   const handleClickMenu = (event) => {
     dispatch(setMenu(event.currentTarget));
   };
-
   const handleCloseMenu = () => {
     dispatch(setMenu(null));
   };
+
+  const makeLogout = () => {
+    dispatch(logout());
+    dispatch(setMenu(null));
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -83,7 +90,7 @@ function App() {
             onClose={handleCloseMenu}>
             <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
             <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-            <MenuItem onClick={handleClickMenu}>Logout</MenuItem>
+            <MenuItem onClick={makeLogout}>Logout</MenuItem>
           </Menu>
           {isAuth ? (
             <Avatar

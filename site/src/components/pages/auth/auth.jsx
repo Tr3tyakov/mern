@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Container, TextField, Typography, Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPassword, setEmail, setModal } from '../actions/actions';
-import { registration, login } from '../actions/asyncActions';
+import { setPassword, setEmail, setModal } from '../../reducers/actions/actions';
+import { registration, login } from '../../reducers/actions/asyncActions';
 
 function Auth({ email, password }) {
   const dispatch = useDispatch();
@@ -12,9 +12,6 @@ function Auth({ email, password }) {
   };
   const makeLogin = () => {
     dispatch(login(email, password));
-    if (localStorage.getItem('Token')) {
-      dispatch(setModal(false));
-    }
   };
   const changePassword = (value) => {
     dispatch(setPassword(value));

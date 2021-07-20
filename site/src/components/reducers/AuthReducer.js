@@ -1,4 +1,4 @@
-import { EMAIL, PASSWORD, AUTH, LOADING } from '../actions/actions';
+import { EMAIL, PASSWORD, AUTH, LOADING } from './constants/constants';
 
 const initialState = {
   email: '',

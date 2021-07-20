@@ -1,5 +1,6 @@
-import AuthService from '../Services/authServices';
-import { setAuth, setLoading } from './actions';
+import AuthService from '../../utils/Services/authServices';
+import { setAuth, setLoading, setModal } from './actions';
+
 export const registration = (email, password) => {
   return async (dispatch) => {
     const userData = await AuthService.registration(email, password);
@@ -14,11 +15,13 @@ export const login = (email, password) => {
     dispatch(setAuth(true));
     localStorage.setItem('Token', userData.data.accessToken);
     dispatch(setLoading(false));
+    dispatch(setModal(false));
   };
 };
 export const logout = () => {
   return async (dispatch) => {
     await AuthService.logout();
+    dispatch(setAuth(false));
     localStorage.clear('Token');
   };
 };
