@@ -1,23 +1,36 @@
 import React from 'react';
 import { Box, Container, TextField, Typography, Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPassword, setEmail, setModal } from '../../reducers/actions/actions';
+import { setPassword, setEmail } from '../../reducers/actions/actions';
 import { registration, login } from '../../reducers/actions/asyncActions';
 
 function Auth({ email, password }) {
   const dispatch = useDispatch();
-
+  const [errorsPassword, setErrorsPassword] = React.useState(false);
+  const [errorsEmail, setErrorsEmail] = React.useState(false);
   const makeRegistration = () => {
     dispatch(registration(email, password));
   };
   const makeLogin = () => {
     dispatch(login(email, password));
   };
-  const changePassword = (value) => {
+  const validationPassword = (event) => {
+    const value = event.target.value;
+    const check = value.length > 8;
     dispatch(setPassword(value));
+    if (!check) {
+      return setErrorsPassword(true);
+    }
+    setErrorsPassword(false);
   };
-  const changeEmail = (value) => {
+  const validationEmail = (event) => {
+    const value = event.target.value;
+    const check = RegExp(/[@]/gi).test(value);
     dispatch(setEmail(value));
+    if (!check) {
+      return setErrorsEmail(true);
+    }
+    setErrorsEmail(false);
   };
   return (
     <>
@@ -40,7 +53,9 @@ function Auth({ email, password }) {
               label="Email"
               variant="filled"
               value={email}
-              onChange={(e) => changeEmail(e.target.value)}></TextField>
+              error={errorsEmail}
+              helperText={errorsEmail && 'Некорректный email'}
+              onChange={validationEmail}></TextField>
           </Box>
           <Box margin="10px 20px">
             <TextField
@@ -49,7 +64,9 @@ function Auth({ email, password }) {
               variant="filled"
               type="password"
               value={password}
-              onChange={(e) => changePassword(e.target.value)}></TextField>
+              error={errorsPassword}
+              helperText={errorsPassword && 'Пароль должен быть длинее 8 символов'}
+              onChange={validationPassword}></TextField>
           </Box>
           <Box width="300px" display="flex" justifyContent="space-between" margin="20px 0">
             <Button variant="contained" color="primary" onClick={makeLogin}>

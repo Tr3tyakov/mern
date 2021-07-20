@@ -2,8 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../header/Header';
 import { Drawer, List, ListItem, ListItemText } from '@material-ui/core';
-import Assortment from './Assortment';
-
+import SortTitle from './SortTitle';
 const titles = ['Обзор', 'История', 'Добавить заказ', 'Ассортимент'];
 
 function Home() {
@@ -41,8 +40,7 @@ function Home() {
             })}
           </List>
         </Drawer>
-
-        <Assortment />
+        <SortTitle page={currentPage} />
       </div>
     </>
   );

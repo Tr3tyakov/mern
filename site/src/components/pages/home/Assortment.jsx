@@ -24,6 +24,7 @@ function Assortment() {
   const dispatch = useDispatch();
   const inputAssortment = useSelector((productReducer) => productReducer.inputAssortment);
   const [modal, setModal] = React.useState(false);
+  const [errors, setErrors] = React.useState(false);
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
@@ -69,8 +70,14 @@ function Assortment() {
     setModal(false);
   };
 
-  const makeAssortment = (value) => {
-    dispatch(setAssortment(value));
+  const validationCategory = (event) => {
+    const value = event.target.value;
+    const check = RegExp(/\d/gi).test(value);
+    if (!check) {
+      setErrors(false);
+      return dispatch(setAssortment(value));
+    }
+    setErrors(true);
   };
 
   return (
@@ -100,7 +107,10 @@ function Assortment() {
                 label="Название категории"
                 className={classes.textField}
                 value={inputAssortment}
-                onChange={(e) => makeAssortment(e.target.value)}
+                error={errors}
+                helperText={errors && 'В категории не должно быть цифр'}
+                variant="filled"
+                onChange={validationCategory}
               />
 
               <Button variant="contained" color="primary" fullWidth className={classes.formButton}>

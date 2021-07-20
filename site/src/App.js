@@ -10,7 +10,7 @@ function App() {
         {/* <Route path={'/shop'} exact component={Shop} />
         <Route path={'/shop/:id'} component={ProductPage} />
         <Route path={'/basket'} exact component={BasketPage} /> */}
-        <Redirect to={'/'} />
+        {/* <Redirect to={'/'} /> */}
       </Switch>
     </BrowserRouter>
   );
