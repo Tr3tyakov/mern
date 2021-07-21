@@ -17,7 +17,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAssortment } from '../../../reducers/actions/actions';
 import { Link } from 'react-router-dom';
-
+import { createCategory } from '../../../reducers/actions/asyncCategoryActions';
 const arrayTitle = ['Напитки', 'Гамбургеры'];
 
 const useStyles = makeStyles((theme) => ({
@@ -74,8 +74,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Assortment() {
   const dispatch = useDispatch();
-  const inputAssortment = useSelector((productReducer) => productReducer.inputAssortment);
+  // const inputAssortment = useSelector((productReducer) => productReducer.inputAssortment);
   const [modal, setModal] = React.useState(false);
+  const [inputAssortment, setInputAssortment] = React.useState('');
   const [errors, setErrors] = React.useState(false);
   const classes = useStyles();
 
@@ -92,9 +93,17 @@ function Assortment() {
     const check = RegExp(/\d/gi).test(value);
     if (!check) {
       setErrors(false);
-      return dispatch(setAssortment(value));
+      // return dispatch(setAssortment(value));
+      return setInputAssortment(value);
     }
     setErrors(true);
+  };
+
+  const makeCategory = () => {
+    console.log(1);
+    if (!errors) {
+      return dispatch(createCategory(inputAssortment));
+    }
   };
 
   return (
@@ -130,7 +139,12 @@ function Assortment() {
                 onChange={validationCategory}
               />
 
-              <Button variant="contained" color="primary" fullWidth className={classes.formButton}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                className={classes.formButton}
+                onClick={makeCategory}>
                 Добавить категорию
               </Button>
             </form>

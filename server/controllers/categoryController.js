@@ -5,6 +5,7 @@ class Category {
     try {
       const { title } = req.body;
       const { RefreshToken } = req.cookies;
+
       const categoryData = await CategoryService.createCategory(RefreshToken, title);
       res.json(categoryData);
     } catch (e) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Container, TextField, Typography, Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPassword, setEmail } from '../../reducers/actions/actions';
-import { registration, login } from '../../reducers/actions/asyncActions';
+import { registration, login } from '../../reducers/actions/asyncAuthActions';
 
 function Auth({ email, password }) {
   const dispatch = useDispatch();

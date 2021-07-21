@@ -16,7 +16,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import MenuIcon from '@material-ui/icons/Menu';
 import { setModal, setMenu } from '../../reducers/actions/actions';
-import { logout } from '../../reducers/actions/asyncActions';
+import { logout } from '../../reducers/actions/asyncAuthActions';
 import Auth from './AuthModal';
 
 function Header() {
