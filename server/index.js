@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./routers/userRouter');
+const categoryRouter = require('./routers/categoryRouter');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +17,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use('/api', userRouter);
+app.use('/api', categoryRouter);
 
 async function start() {
   try {

@@ -1,4 +1,4 @@
-const UserService = require('../services/userServices.js');
+const UserService = require('../services/userService.js');
 const { validationResult } = require('express-validator');
 class UserController {
   async registration(req, res, next) {

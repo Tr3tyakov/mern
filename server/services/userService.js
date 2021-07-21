@@ -1,10 +1,10 @@
-const User = require('../models/userModel');
+const User = require('../models/users/userModel');
 const uuid = require('uuid');
 const transportMailer = require('../nodeMailer/userEmail');
 const bcrypt = require('bcrypt');
 const TokenService = require('../TokenService/userToken');
 const UserDto = require('../DTO/userDto');
-const TokenModel = require('../models/TokenModel');
+const TokenModel = require('../models/users/TokenModel');
 
 class UserService {
   async registration(email, password) {
