@@ -7,10 +7,7 @@ import {
   Paper,
   Modal,
   Fade,
-  ListItemIcon,
-  List,
   ListItem,
-  Box,
   TextField,
   Backdrop,
   ListItemText,
@@ -18,48 +15,68 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAssortment } from '../../reducers/actions/actions';
+import { setAssortment } from '../../../reducers/actions/actions';
+import { Link } from 'react-router-dom';
+
+const arrayTitle = ['Напитки', 'Гамбургеры'];
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: '100px',
+  },
+  paper: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    width: '600px',
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '10px',
+  },
+
+  titleBlock: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '100%',
+  },
+  title: {
+    margin: '0 auto 10px 0',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: '100%',
+  },
+  formButton: {
+    marginTop: 'auto',
+  },
+  textField: {
+    width: '100%',
+    margin: theme.margin.default,
+  },
+  currentProduct: {
+    width: '100%',
+    display: 'flex',
+    margin: '10px 0',
+  },
+  assortmentItem: {
+    flex: 'auto',
+    textDecoration: 'none',
+  },
+  assortmentButton: {
+    flex: 0,
+    margin: '0 0 0 10px',
+  },
+}));
 
 function Assortment() {
   const dispatch = useDispatch();
   const inputAssortment = useSelector((productReducer) => productReducer.inputAssortment);
   const [modal, setModal] = React.useState(false);
   const [errors, setErrors] = React.useState(false);
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%,-50%)',
-      width: '600px',
-      backgroundColor: 'white',
-      padding: '20px',
-      borderRadius: '10px',
-    },
-
-    titleBlock: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      width: '100%',
-    },
-    title: {
-      margin: '0 auto 10px 0',
-    },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      height: '100%',
-    },
-    formButton: {
-      marginTop: 'auto',
-    },
-    textField: {
-      width: '100%',
-      margin: '20px 0',
-    },
-  }));
   const classes = useStyles();
 
   const handleOpen = () => {
@@ -81,7 +98,7 @@ function Assortment() {
   };
 
   return (
-    <Container>
+    <Container className={classes.container}>
       <div className={classes.titleBlock}>
         <Typography variant="h4" className={classes.title}>
           Категории
@@ -122,16 +139,22 @@ function Assortment() {
       </Modal>
 
       <Grid item xs={12}>
-        <List component="nav">
-          <Paper>
-            <ListItem button>
-              <ListItemText primary="Trash" />
-              <ListItemIcon>
+        {arrayTitle.map((element, index) => {
+          return (
+            <div className={classes.currentProduct} key={index}>
+              <Link to={`/assortment/${element}`} className={classes.assortmentItem}>
+                <Paper>
+                  <ListItem button>
+                    <ListItemText primary={element} />
+                  </ListItem>
+                </Paper>
+              </Link>
+              <Button variant="outlined" color="primary" className={classes.assortmentButton}>
                 <DeleteIcon />
-              </ListItemIcon>
-            </ListItem>
-          </Paper>
-        </List>
+              </Button>
+            </div>
+          );
+        })}
       </Grid>
     </Container>
   );

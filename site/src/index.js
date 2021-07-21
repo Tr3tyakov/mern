@@ -13,6 +13,9 @@ const theme = createTheme({
       contrastText: 'white',
     },
   },
+  margin: {
+    default: '20px 0',
+  },
 });
 
 ReactDOM.render(

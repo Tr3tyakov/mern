@@ -1,11 +1,12 @@
 import React from 'react';
-import Assortment from './Assortment';
+import Assortment from './Assortment/Assortment';
+import AddOrder from './Assortment/CurrentProduct';
 function SortTitle({ page }) {
   switch (page) {
     case 'История':
       return <h1>История</h1>;
     case 'Добавить заказ':
-      return <h1>Добавить заказ</h1>;
+      return <AddOrder />;
     case 'Ассортимент':
       return <Assortment />;
     default:
