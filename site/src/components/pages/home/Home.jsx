@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import SortTitle from './SortTitle';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AddIcon from '@material-ui/icons/Add';
@@ -34,6 +33,7 @@ const useStyles = makeStyles({
 });
 
 function Home() {
+  console.log(2);
   const classes = useStyles();
   return (
     <>

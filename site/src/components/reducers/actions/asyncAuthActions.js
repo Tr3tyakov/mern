@@ -5,7 +5,6 @@ export const registration = (email, password) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     const userData = await AuthService.registration(email, password);
-    console.log(userData);
     dispatch(setLoading(false));
   };
 };

@@ -12,6 +12,23 @@ class Category {
       next(e);
     }
   }
+  async getCategory(req, res, next) {
+    try {
+      const categoryData = await CategoryService.getCategory();
+      res.json(categoryData);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async deleteCategory(req, res, next) {
+    try {
+      const { id } = req.params;
+      const categoryData = await CategoryService.deleteCategory();
+      res.json(categoryData);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new Category();

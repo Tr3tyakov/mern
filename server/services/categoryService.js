@@ -13,6 +13,14 @@ class CategoryService {
     const category = await Category.create({ user, title });
     return category;
   }
+  async getCategory() {
+    const categoryData = await Category.find();
+    return categoryData;
+  }
+  async deleteCategory(id) {
+    const categoryData = await Category.deleteOne(id);
+    return categoryData;
+  }
 }
 
 module.exports = new CategoryService();

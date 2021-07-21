@@ -3,32 +3,32 @@ import { IconButton, CardHeader, Card, CardMedia } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
 
-function Categories() {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      maxWidth: 265,
-      margin: '6px',
-    },
-    media: {
-      height: '200px',
-      width: '200px',
-      objectFit: 'contain',
-    },
-    cardWrap: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '10px',
-    },
-    avatar: {
-      backgroundColor: 'red',
-    },
-    products: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-  }));
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 265,
+    margin: '6px',
+  },
+  media: {
+    height: '200px',
+    width: '200px',
+    objectFit: 'contain',
+  },
+  cardWrap: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
+  },
+  avatar: {
+    backgroundColor: 'red',
+  },
+  products: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+}));
 
+function Categories() {
   const classes = useStyles();
   return (
     <div className={classes.products}>

@@ -15,10 +15,12 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAssortment } from '../../../reducers/actions/actions';
 import { Link } from 'react-router-dom';
-import { createCategory } from '../../../reducers/actions/asyncCategoryActions';
-const arrayTitle = ['Напитки', 'Гамбургеры'];
+import {
+  createCategory,
+  getCategory,
+  deleteCurrentCategory,
+} from '../../../reducers/actions/asyncCategoryActions';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -55,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: '100%',
-    margin: theme.margin.default,
   },
   currentProduct: {
     width: '100%',
@@ -73,12 +74,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Assortment() {
+  console.log(1);
   const dispatch = useDispatch();
-  // const inputAssortment = useSelector((productReducer) => productReducer.inputAssortment);
+  const classes = useStyles();
+  const category = useSelector(({ productsReducer }) => productsReducer.category);
   const [modal, setModal] = React.useState(false);
   const [inputAssortment, setInputAssortment] = React.useState('');
   const [errors, setErrors] = React.useState(false);
-  const classes = useStyles();
+  React.useEffect(() => {
+    dispatch(getCategory());
+  }, []);
 
   const handleOpen = () => {
     setModal(true);
@@ -93,19 +98,21 @@ function Assortment() {
     const check = RegExp(/\d/gi).test(value);
     if (!check) {
       setErrors(false);
-      // return dispatch(setAssortment(value));
+
       return setInputAssortment(value);
     }
     setErrors(true);
   };
 
   const makeCategory = () => {
-    console.log(1);
-    if (!errors) {
+    if (!errors || inputAssortment !== '') {
+      handleClose();
       return dispatch(createCategory(inputAssortment));
     }
   };
-
+  const deleteThisCategory = (id) => {
+    dispatch(deleteCurrentCategory(id));
+  };
   return (
     <Container className={classes.container}>
       <div className={classes.titleBlock}>
@@ -113,7 +120,7 @@ function Assortment() {
           Категории
         </Typography>
         <Button variant="contained" color="secondary" onClick={handleOpen}>
-          Добавить Категории
+          Добавить Категорию
         </Button>
       </div>
       <Modal
@@ -153,17 +160,21 @@ function Assortment() {
       </Modal>
 
       <Grid item xs={12}>
-        {arrayTitle.map((element, index) => {
+        {category.map((element, index) => {
           return (
             <div className={classes.currentProduct} key={index}>
-              <Link to={`/assortment/${element}`} className={classes.assortmentItem}>
+              <Link to={`/assortment/${element.title}`} className={classes.assortmentItem}>
                 <Paper>
                   <ListItem button>
-                    <ListItemText primary={element} />
+                    <ListItemText primary={element.title} />
                   </ListItem>
                 </Paper>
               </Link>
-              <Button variant="outlined" color="primary" className={classes.assortmentButton}>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.assortmentButton}
+                onClick={() => deleteThisCategory(element._id)}>
                 <DeleteIcon />
               </Button>
             </div>
