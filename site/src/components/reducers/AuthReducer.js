@@ -4,7 +4,7 @@ const initialState = {
   email: '',
   password: '',
   isAuth: '',
-  isLoading: '',
+  isLoading: false,
   openModal: false,
 };
 

@@ -33,7 +33,6 @@ const useStyles = makeStyles({
 });
 
 function Home() {
-  console.log(2);
   const classes = useStyles();
   return (
     <>

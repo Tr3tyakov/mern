@@ -23,7 +23,6 @@ export const deleteCurrentCategory = (id) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     const categoryData = await categoryService.deleteCategory(id);
-    console.log(categoryData);
     dispatch(deleteCategory(id));
     dispatch(setLoading(false));
   };

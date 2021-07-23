@@ -14,7 +14,7 @@ const initialState = {
   inputAssortment: '',
 };
 
-export const productsReducer = (state = initialState, action) => {
+export const categoryReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CATEGORY:
       return { ...state, category: action.payload };
