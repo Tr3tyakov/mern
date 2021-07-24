@@ -23,8 +23,6 @@ class productService {
   async getProducts(title) {
     const categoryId = await categoryService.findCurrentCategory(title);
     const products = await Product.find({ category: categoryId._id });
-    console.log(categoryId._id);
-    console.log(products);
     return products;
   }
   async deleteProduct(id) {
@@ -32,7 +30,9 @@ class productService {
     return products;
   }
   async deleteAll(id) {
-    const products = await Product.deleteMany({ id });
+    console.log(id);
+    const products = await Product.deleteMany({ category: id });
+    console.log(products, 'deletemany');
     return products;
   }
 }

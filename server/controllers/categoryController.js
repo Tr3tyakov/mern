@@ -23,7 +23,7 @@ class Category {
   }
   async deleteCategory(req, res, next) {
     try {
-      const { id } = req.params;
+      const id = req.params.id;
       const categoryData = await CategoryService.deleteCategory();
       const productData = await productService.deleteAll(id);
 

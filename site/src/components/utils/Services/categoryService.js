@@ -9,6 +9,6 @@ export default class CategoryService {
     return await api.get('/category');
   }
   static async deleteCategory(id) {
-    return await api.delete(`/category/:${id}`);
+    return await api.delete(`/category/${id}`);
   }
 }
