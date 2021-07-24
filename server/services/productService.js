@@ -1,7 +1,7 @@
 const categoryService = require('../services/categoryService');
-const Category = require('../models/products/Category');
 const Product = require('../models/products/Product');
 const Token = require('../TokenService/userToken');
+
 class productService {
   async createProduct(name, image, cost, RefreshToken, categoryId) {
     const check = await Product.findOne({ name });
@@ -10,7 +10,7 @@ class productService {
     }
     const userId = await Token.findToken(RefreshToken);
     const categoryData = await categoryService.findCurrentCategory(categoryId);
-
+    console.log(categoryData, 'categoryData');
     const product = await Product.create({
       user: userId._id,
       category: categoryData._id,
@@ -22,8 +22,17 @@ class productService {
   }
   async getProducts(title) {
     const categoryId = await categoryService.findCurrentCategory(title);
-    console.log(categoryId);
-    const products = await Product.find(categoryId._id);
+    const products = await Product.find({ category: categoryId._id });
+    console.log(categoryId._id);
+    console.log(products);
+    return products;
+  }
+  async deleteProduct(id) {
+    const products = await Product.deleteOne({ id });
+    return products;
+  }
+  async deleteAll(id) {
+    const products = await Product.deleteMany({ id });
     return products;
   }
 }

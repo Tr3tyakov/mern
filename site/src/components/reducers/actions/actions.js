@@ -11,6 +11,7 @@ import {
   MAKE_CATEGORY,
   FETCH_CATEGORY,
   PUT_PRODUCT,
+  DELETE_PRODUCT_ALL,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
 } from '../constants/constants';
@@ -35,4 +36,5 @@ export const deleteCategory = (value) => ({ type: DELETE_CATEGORY, payload: valu
 
 export const setProduct = (value) => ({ type: PUT_PRODUCT, payload: value });
 export const makeProduct = (value) => ({ type: CREATE_PRODUCT, payload: value });
-export const deleteProduct = (value) => ({ type: DELETE_PRODUCT, payload: value });
+export const deleteProduct = (id) => ({ type: DELETE_PRODUCT, payload: id });
+export const deleteProductAll = () => ({ type: DELETE_PRODUCT_ALL });

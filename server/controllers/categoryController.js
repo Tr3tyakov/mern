@@ -1,4 +1,5 @@
 const CategoryService = require('../services/categoryService');
+const productService = require('../services/productService');
 
 class Category {
   async createCategory(req, res, next) {
@@ -24,6 +25,8 @@ class Category {
     try {
       const { id } = req.params;
       const categoryData = await CategoryService.deleteCategory();
+      const productData = await productService.deleteAll(id);
+
       res.json(categoryData);
     } catch (e) {
       next(e);

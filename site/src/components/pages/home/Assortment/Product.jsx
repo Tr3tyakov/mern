@@ -11,7 +11,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import {
+  deleteCurrentProduct,
+  getCurrentProducts,
+} from '../../../reducers/actions/asyncProductActions';
 function Product({ classes }) {
   const dispatch = useDispatch();
   const product = useSelector(({ productReducer }) => productReducer.product);
@@ -19,11 +22,17 @@ function Product({ classes }) {
     id: '',
     anchor: '',
   });
+
   const handleClick = (event, elementId) => {
     setMenu({ ...menu, id: elementId, anchor: event.currentTarget });
   };
   const closeMenu = () => {
     setMenu({ ...menu, id: null, anchor: null });
+  };
+
+  const deleteProduct = (id) => {
+    setMenu({ ...menu, id: null, anchor: null });
+    dispatch(deleteCurrentProduct(id));
   };
 
   return (
@@ -50,7 +59,7 @@ function Product({ classes }) {
                         open={element._id === menu.id}
                         onClose={closeMenu}>
                         <MenuItem onClick={closeMenu}>Изменить</MenuItem>
-                        <MenuItem onClick={closeMenu}>Удалить</MenuItem>
+                        <MenuItem onClick={() => deleteProduct(element._id)}>Удалить</MenuItem>
                       </Menu>
                     </div>
                   }

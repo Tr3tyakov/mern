@@ -1,5 +1,5 @@
 import ProductService from '../../utils/Services/productService';
-import { setLoading, setProduct, makeProduct } from './actions';
+import { setLoading, setProduct, makeProduct, deleteProduct } from './actions';
 
 export const createProduct = (title, img, cost, categoryId) => {
   return async (dispatch) => {
@@ -9,15 +9,6 @@ export const createProduct = (title, img, cost, categoryId) => {
     dispatch(setLoading(false));
   };
 };
-
-export const deleteProduct = (title) => {
-  return async (dispatch) => {
-    dispatch(setLoading(true));
-    const productData = await ProductService.deleteProduct(title);
-    dispatch(setLoading(true));
-  };
-};
-
 export const getCurrentProducts = (categoryId) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
@@ -25,5 +16,14 @@ export const getCurrentProducts = (categoryId) => {
     console.log(productData);
     dispatch(setProduct(productData.data));
     dispatch(setLoading(false));
+  };
+};
+
+export const deleteCurrentProduct = (id) => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    const productData = await ProductService.deleteProduct(id);
+    dispatch(deleteProduct(id));
+    dispatch(setLoading(true));
   };
 };

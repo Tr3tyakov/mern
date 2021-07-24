@@ -1,4 +1,4 @@
-import { setCategory, setLoading, deleteCategory, makeCategory } from './actions';
+import { setCategory, setLoading, deleteCategory, makeCategory, deleteProductAll } from './actions';
 import categoryService from '../../utils/Services/categoryService';
 
 export const createCategory = (title) => {
@@ -24,6 +24,7 @@ export const deleteCurrentCategory = (id) => {
     dispatch(setLoading(true));
     const categoryData = await categoryService.deleteCategory(id);
     dispatch(deleteCategory(id));
+    dispatch(deleteProductAll());
     dispatch(setLoading(false));
   };
 };

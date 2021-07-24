@@ -1,6 +1,5 @@
 const Category = require('../models/products/Category');
-const Token = require('../models/users/TokenModel');
-const User = require('../models/users/userModel');
+
 const TokenService = require('../TokenService/userToken');
 
 class CategoryService {
@@ -18,7 +17,7 @@ class CategoryService {
     return categoryData;
   }
   async findCurrentCategory(title) {
-    const categoryData = await Category.find({ title });
+    const categoryData = await Category.findOne({ title });
     return categoryData;
   }
   async deleteCategory(id) {

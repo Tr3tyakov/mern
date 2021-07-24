@@ -4,6 +4,6 @@ const router = new Router();
 
 router.post('/product', productController.createProduct);
 router.get('/product/:title', productController.getProducts);
-router.delete('/product', productController.createProduct);
+router.delete('/product/:id', productController.deleteProduct);
 
 module.exports = router;

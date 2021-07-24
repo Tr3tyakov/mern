@@ -26,6 +26,15 @@ class productController {
       next(e);
     }
   }
+  async deleteProduct(req, res, next) {
+    try {
+      const id = req.params.id;
+      const productData = await productService.deleteProduct(id);
+      res.json(productData);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new productController();
