@@ -7,7 +7,7 @@ export default class ProductSevice {
   static async deleteProduct(title) {
     return await api.delete(`/product/${title}`);
   }
-  static async getProduct() {
-    return await api.get(`/product`);
+  static async getCurrentProduct(categoryId) {
+    return await api.get(`/product/${categoryId}`);
   }
 }

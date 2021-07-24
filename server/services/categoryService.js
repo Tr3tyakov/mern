@@ -17,6 +17,10 @@ class CategoryService {
     const categoryData = await Category.find();
     return categoryData;
   }
+  async findCurrentCategory(title) {
+    const categoryData = await Category.find({ title });
+    return categoryData;
+  }
   async deleteCategory(id) {
     const categoryData = await Category.deleteOne(id);
     return categoryData;

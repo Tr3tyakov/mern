@@ -11,7 +11,7 @@ import {
   MAKE_CATEGORY,
   FETCH_CATEGORY,
   PUT_PRODUCT,
-  MAKE_PRODUCT,
+  CREATE_PRODUCT,
   DELETE_PRODUCT,
 } from '../constants/constants';
 
@@ -34,5 +34,5 @@ export const makeCategory = (value) => ({ type: MAKE_CATEGORY, payload: value })
 export const deleteCategory = (value) => ({ type: DELETE_CATEGORY, payload: value });
 
 export const setProduct = (value) => ({ type: PUT_PRODUCT, payload: value });
-export const makeProduct = (value) => ({ type: MAKE_PRODUCT, payload: value });
+export const makeProduct = (value) => ({ type: CREATE_PRODUCT, payload: value });
 export const deleteProduct = (value) => ({ type: DELETE_PRODUCT, payload: value });

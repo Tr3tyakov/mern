@@ -2,7 +2,7 @@ import { PUT_PRODUCT, DELETE_PRODUCT, CREATE_PRODUCT } from './constants/constan
 
 const initialState = { product: [] };
 
-export const productsReducer = (state = initialState, action) => {
+export const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case PUT_PRODUCT:
       return { ...state, product: action.payload };
@@ -16,7 +16,7 @@ export const productsReducer = (state = initialState, action) => {
     case CREATE_PRODUCT:
       return {
         ...state,
-        product: { ...state, product: [...state.product, action.payload] },
+        product: [...state.product, action.payload],
       };
     default:
       return state;

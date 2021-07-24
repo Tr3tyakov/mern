@@ -107,7 +107,7 @@ function Assortment() {
           Добавить Категорию
         </Button>
       </div>
-      <AssortmentModal handleClose={handleClose} modal={modal} />
+      <AssortmentModal handleClose={handleClose} modal={modal} classes={classes} />
 
       <Grid item xs={12}>
         {category.map((element, index) => {

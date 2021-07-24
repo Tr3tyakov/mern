@@ -1,3 +1,4 @@
+const categoryService = require('../services/categoryService');
 const Category = require('../models/products/Category');
 const Product = require('../models/products/Product');
 const Token = require('../TokenService/userToken');
@@ -8,7 +9,7 @@ class productService {
       throw Error('Данный продукт уже существует');
     }
     const userId = await Token.findToken(RefreshToken);
-    const categoryData = await Category.findOne({ title: categoryId });
+    const categoryData = await categoryService.findCurrentCategory(categoryId);
 
     const product = await Product.create({
       user: userId._id,
@@ -18,6 +19,12 @@ class productService {
       cost,
     });
     return product;
+  }
+  async getProducts(title) {
+    const categoryId = await categoryService.findCurrentCategory(title);
+    console.log(categoryId);
+    const products = await Product.find(categoryId._id);
+    return products;
   }
 }
 

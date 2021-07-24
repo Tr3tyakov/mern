@@ -5,7 +5,7 @@ export const createProduct = (title, img, cost, categoryId) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     const productData = await ProductService.createProduct(title, img, cost, categoryId);
-    dispatch(makeProduct(productData));
+    dispatch(makeProduct(productData.data));
     dispatch(setLoading(false));
   };
 };
@@ -18,11 +18,12 @@ export const deleteProduct = (title) => {
   };
 };
 
-export const getProduct = () => {
+export const getCurrentProducts = (categoryId) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
-    const productData = await ProductService.getProduct();
-    dispatch(setProduct(productData));
+    const productData = await ProductService.getCurrentProduct(categoryId);
+    console.log(productData);
+    dispatch(setProduct(productData.data));
     dispatch(setLoading(false));
   };
 };

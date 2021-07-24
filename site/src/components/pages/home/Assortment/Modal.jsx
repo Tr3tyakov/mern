@@ -1,36 +1,9 @@
 import React from 'react';
 import { Typography, Button, Paper, Modal, Fade, TextField, Backdrop } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCategory } from '../../../reducers/actions/asyncCategoryActions';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)',
-    width: '600px',
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '10px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: '100%',
-  },
-  formButton: {
-    marginTop: 'auto',
-  },
-  textField: {
-    width: '100%',
-  },
-}));
-function AssortmentModal({ modal, handleClose }) {
-  const classes = useStyles();
+function AssortmentModal({ modal, handleClose, classes }) {
   const dispatch = useDispatch();
   const [inputAssortment, setInputAssortment] = React.useState('');
   const [errors, setErrors] = React.useState(false);

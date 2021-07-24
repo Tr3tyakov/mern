@@ -6,58 +6,22 @@ import {
   Button,
   CardMedia,
   FormControl,
-  OutlinedInput,
-  InputLabel,
-  InputAdornment,
   IconButton,
 } from '@material-ui/core';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import { makeStyles } from '@material-ui/core/styles';
-import Categories from '../Categories/Categories';
+import Product from './Product';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setProduct } from '../../../reducers/actions/actions';
-import { createProduct } from '../../../reducers/actions/asyncProductActions';
-
-const useStyles = makeStyles({
-  container: {
-    marginTop: '100px',
-  },
-  inputFile: {
-    display: 'none',
-  },
-  uploadImg: {
-    height: '100%',
-    width: '400px',
-    objectFit: 'cover',
-    borderRadius: '5px',
-    overflow: 'hidden',
-  },
-  order: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    margin: '0 0 20px',
-    width: '100%',
-  },
-  flex: {
-    display: 'flex',
-  },
-  btns: {
-    margin: '10px 0 10px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-});
+import { createProduct, getCurrentProducts } from '../../../reducers/actions/asyncProductActions';
+import { useStyles } from './style';
 
 function CurrentProduct() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const location = useLocation();
+  React.useEffect(() => {
+    dispatch(getCurrentProducts(location.state.title));
+  }, []);
 
   const [file, setfile] = React.useState('');
   const [errors, setErrors] = React.useState({
@@ -157,7 +121,7 @@ function CurrentProduct() {
         </div>
       </Container>
       <Container maxWidth="lg">
-        <Categories />
+        <Product classes={classes} />
       </Container>
     </>
   );

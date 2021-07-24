@@ -17,8 +17,15 @@ class productController {
       next(e);
     }
   }
-  async deleteProduct() {}
-  async getProduct() {}
+  async getProducts(req, res, next) {
+    try {
+      const title = req.params.title;
+      const productData = await productService.getProducts(title);
+      res.json(productData);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new productController();

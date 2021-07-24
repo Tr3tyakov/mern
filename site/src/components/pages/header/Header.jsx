@@ -19,44 +19,44 @@ import { setModal, setMenu } from '../../reducers/actions/actions';
 import { logout } from '../../reducers/actions/asyncAuthActions';
 import Auth from './AuthModal';
 
+const useStyles = makeStyles({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  menuButton: {
+    marginRight: 'auto',
+  },
+  box: {
+    padding: '10px',
+    width: '600px',
+    height: '400px',
+    backgroundColor: 'white',
+    borderRadius: '10px',
+  },
+  avatar: {
+    cursor: 'pointer',
+  },
+  appBar: {
+    zIndex: 1210,
+  },
+});
 function Header() {
   const dispatch = useDispatch();
   const { email, password, isAuth, openModal, openMenu } = useSelector(
-    ({ authReducer, productsReducer }) => {
+    ({ authReducer, productReducer }) => {
       return {
         email: authReducer.email,
         password: authReducer.password,
         isAuth: authReducer.isAuth,
         openModal: authReducer.openModal,
 
-        openMenu: productsReducer.openMenu,
+        openMenu: productReducer.openMenu,
       };
     },
   );
 
-  const useStyles = makeStyles({
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    menuButton: {
-      marginRight: 'auto',
-    },
-    box: {
-      padding: '10px',
-      width: '600px',
-      height: '400px',
-      backgroundColor: 'white',
-      borderRadius: '10px',
-    },
-    avatar: {
-      cursor: 'pointer',
-    },
-    appBar: {
-      zIndex: 1210,
-    },
-  });
   const classes = useStyles();
 
   //menu user avatar
