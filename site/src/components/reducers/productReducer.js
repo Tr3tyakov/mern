@@ -73,12 +73,20 @@ export const productReducer = (state = initialState, action) => {
       };
     }
     case ORDER: {
-      //fix
+      const check = state.order.find((element) => element.name === action.payload.name);
+      if (check) {
+        const otherState = state.order.map((element) =>
+          element.name === action.payload.name ? action.payload : element,
+        );
+        const count = otherState.reduce((total, element) => total + element.count, 0);
+        const cost = otherState.reduce((total, element) => total + element.cost, 0);
+        return { ...state, order: otherState, count, cost };
+      }
+
       const orderState = { order: [...state.order, action.payload] };
-      //fix
       const count = orderState.order.reduce((total, element) => total + element.count, 0);
       const cost = orderState.order.reduce((total, element) => total + element.cost, 0);
-      return { ...state, order: [...state.order, action.payload], count, cost };
+      return { ...state, order: [...orderState.order], count, cost };
     }
     default:
       return state;
