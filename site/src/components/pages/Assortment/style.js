@@ -1,8 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles({
-  container: {
-    marginTop: '100px',
-  },
   inputFile: {
     display: 'none',
   },
@@ -40,6 +37,7 @@ export const useStyles = makeStyles({
     height: '200px',
     width: '200px',
     objectFit: 'contain',
+    margin: 'auto',
   },
   cardWrap: {
     display: 'flex',

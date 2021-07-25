@@ -14,12 +14,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getCategory, deleteCurrentCategory } from '../../../reducers/actions/asyncCategoryActions';
+import { getCategory, deleteCurrentCategory } from '../../reducers/actions/asyncCategoryActions';
+// import { useStyles } from './style';
 import AssortmentModal from './Modal';
-const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: '100px',
-  },
+const useStyles = makeStyles({
   paper: {
     position: 'absolute',
     top: '50%',
@@ -69,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1221,
     color: '#fff',
   },
-}));
+});
 
 function Assortment() {
   React.useEffect(() => {

@@ -11,10 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {
-  deleteCurrentProduct,
-  getCurrentProducts,
-} from '../../../reducers/actions/asyncProductActions';
+import { deleteCurrentProduct } from '../../reducers/actions/asyncProductActions';
 function Product({ classes }) {
   const dispatch = useDispatch();
   const product = useSelector(({ productReducer }) => productReducer.product);

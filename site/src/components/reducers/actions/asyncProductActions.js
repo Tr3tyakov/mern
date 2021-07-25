@@ -13,7 +13,6 @@ export const getCurrentProducts = (categoryId) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     const productData = await ProductService.getCurrentProduct(categoryId);
-    console.log(productData);
     dispatch(setProduct(productData.data));
     dispatch(setLoading(false));
   };

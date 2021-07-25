@@ -1,63 +1,40 @@
 import React from 'react';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Button,
-  makeStyles,
-  Modal,
-  Backdrop,
-  Fade,
-  Box,
-  Avatar,
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
-import { setModal, setMenu } from '../../reducers/actions/actions';
-import { logout } from '../../reducers/actions/asyncAuthActions';
 import Auth from './AuthModal';
 
-const useStyles = makeStyles({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  menuButton: {
-    marginRight: 'auto',
-  },
-  box: {
-    padding: '10px',
-    width: '600px',
-    height: '400px',
-    backgroundColor: 'white',
-    borderRadius: '10px',
-  },
-  avatar: {
-    cursor: 'pointer',
-  },
-  appBar: {
-    zIndex: 1210,
-  },
-});
+import { useSelector, useDispatch } from 'react-redux';
+import { setModal, setMenu, setDrawer } from '../../reducers/actions/actions';
+import { logout } from '../../reducers/actions/asyncAuthActions';
+import { useStyles } from './style';
+import ModalDrawer from './ModalDrawer';
+
 function Header() {
   const dispatch = useDispatch();
-  const { email, password, isAuth, openModal, openMenu } = useSelector(
-    ({ authReducer, productReducer }) => {
+  const classes = useStyles();
+  const { email, password, isAuth, openModal, openMenu, openDrawer } = useSelector(
+    ({ authReducer, headerReducer }) => {
       return {
         email: authReducer.email,
         password: authReducer.password,
         isAuth: authReducer.isAuth,
         openModal: authReducer.openModal,
 
-        openMenu: productReducer.openMenu,
+        openMenu: headerReducer.openMenu,
+        openDrawer: headerReducer.openDrawer,
       };
     },
   );
-
-  const classes = useStyles();
 
   //menu user avatar
   const handleClickMenu = (event) => {
@@ -78,15 +55,23 @@ function Header() {
     dispatch(logout());
     dispatch(setMenu(null));
   };
-
+  const setOpenDrawer = () => {
+    dispatch(setDrawer(true));
+  };
+  const setCloseDrawer = () => {
+    dispatch(setDrawer(false));
+  };
   return (
     <>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <IconButton edge="start" color="inherit" className={classes.menuButton}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            className={classes.menuButton}
+            onClick={setOpenDrawer}>
             <MenuIcon />
           </IconButton>
-          <IconButton edge="start" color="inherit"></IconButton>
           <Menu
             id="simple-menu"
             anchorEl={openMenu}
@@ -111,6 +96,7 @@ function Header() {
           )}
         </Toolbar>
       </AppBar>
+      <ModalDrawer setCloseDrawer={setCloseDrawer} openDrawer={openDrawer} classes={classes} />
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

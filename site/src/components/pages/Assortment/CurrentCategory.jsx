@@ -12,7 +12,7 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Product from './Product';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createProduct, getCurrentProducts } from '../../../reducers/actions/asyncProductActions';
+import { createProduct, getCurrentProducts } from '../../reducers/actions/asyncProductActions';
 import { useStyles } from './style';
 
 function CurrentProduct() {

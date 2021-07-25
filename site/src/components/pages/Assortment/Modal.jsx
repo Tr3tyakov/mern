@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Button, Paper, Modal, Fade, TextField, Backdrop } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCategory } from '../../../reducers/actions/asyncCategoryActions';
+import { createCategory } from '../../reducers/actions/asyncCategoryActions';
 
 function AssortmentModal({ modal, handleClose, classes }) {
   const dispatch = useDispatch();

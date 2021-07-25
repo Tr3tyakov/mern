@@ -3,11 +3,21 @@ import {
   DELETE_PRODUCT,
   CREATE_PRODUCT,
   DELETE_PRODUCT_ALL,
+  INCREASE_COUNTER,
+  DECREASE_COUNTER,
+  ORDER,
 } from './constants/constants';
 
-const initialState = { product: [] };
+const initialState = {
+  product: [],
+  order: [],
+  cost: 0,
+  count: 0,
+  qty: {},
+};
 
 export const productReducer = (state = initialState, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case PUT_PRODUCT:
       return { ...state, product: action.payload };
@@ -28,7 +38,72 @@ export const productReducer = (state = initialState, action) => {
         ...state,
         product: [...state.product, action.payload],
       };
+    case INCREASE_COUNTER: {
+      const check = state.qty[action.payload._id];
+
+      if (check) {
+        return {
+          ...state,
+          qty: {
+            ...state.qty,
+            [action.payload._id]: {
+              ...state.qty[action.payload._id],
+              count: state.qty[action.payload._id].count + 1,
+              cost: action.payload.cost * (state.qty[action.payload._id].count + 1),
+            },
+          },
+        };
+      }
+      return {
+        ...state,
+        qty: { ...state.qty, [action.payload._id]: { count: 2, cost: action.payload.cost * 2 } },
+      };
+    }
+    case DECREASE_COUNTER: {
+      return {
+        ...state,
+        qty: {
+          ...state.qty,
+          [action.payload._id]: {
+            ...state.qty[action.payload._id],
+            count: state.qty[action.payload._id].count - 1,
+            cost: action.payload.cost * (state.qty[action.payload._id].count - 1),
+          },
+        },
+      };
+    }
+    case ORDER: {
+      //fix
+      const orderState = { order: [...state.order, action.payload] };
+      //fix
+      const count = orderState.order.reduce((total, element) => total + element.count, 0);
+      const cost = orderState.order.reduce((total, element) => total + element.cost, 0);
+      return { ...state, order: [...state.order, action.payload], count, cost };
+    }
     default:
       return state;
   }
 };
+
+// case COUNTER: {
+//   const check = state.qty.find((element) => element.id === action.payload._id);
+
+//   if (check) {
+//     return {
+//       ...state,
+//       qty: state.qty.map((element) => {
+//         return element.id === action.payload._id
+//           ? {
+//               ...element,
+//               counter: element.counter + 1,
+//               cost: action.payload.cost * (element.counter + 1),
+//             }
+//           : element;
+//       }),
+//     };
+//   }
+//   return {
+//     ...state,
+//     qty: [...state.qty, { id: action.payload._id, cost: action.payload.cost, counter: 1 }],
+//   };
+// }

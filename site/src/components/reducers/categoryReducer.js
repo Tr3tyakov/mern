@@ -9,7 +9,6 @@ import {
 
 const initialState = {
   category: [],
-  openMenu: null,
   inputCategories: '',
   inputAssortment: '',
 };

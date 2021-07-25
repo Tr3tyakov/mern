@@ -27,6 +27,14 @@ class productController {
       next(e);
     }
   }
+  async getAllProducts(req, res, next) {
+    try {
+      const productData = await productService.getAll();
+      res.json(productData);
+    } catch (e) {
+      next(e);
+    }
+  }
   async deleteProduct(req, res, next) {
     try {
       const id = req.params.id;
