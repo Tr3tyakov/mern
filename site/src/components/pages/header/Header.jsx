@@ -53,6 +53,7 @@ function Header() {
 
   const makeLogout = () => {
     dispatch(logout());
+
     dispatch(setMenu(null));
   };
   const setOpenDrawer = () => {

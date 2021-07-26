@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { Drawer, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';

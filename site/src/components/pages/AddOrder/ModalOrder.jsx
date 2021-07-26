@@ -20,8 +20,10 @@ function ModalOrder({ modal, setCloseModal, order, classes, count, cost }) {
         <Fade in={modal}>
           <Paper className={classes.paper}>
             <form className={classes.form} noValidate autoComplete="off">
-              <Typography variant="h5">ОФОРМИТЬ ЗАКАЗ:</Typography>
-              <TableContainer>
+              <Typography variant="h5" gutterBottom>
+                ОФОРМИТЬ ЗАКАЗ:
+              </Typography>
+              <TableContainer className={classes.tableContainer}>
                 <Table className={classes.table}>
                   <TableHead>
                     <TableRow>
@@ -30,7 +32,8 @@ function ModalOrder({ modal, setCloseModal, order, classes, count, cost }) {
                       <TableCell>Количество</TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+
+                  <TableBody className={classes.tbody}>
                     {order.map((element) => {
                       return (
                         <TableRow key={element.name}>
@@ -51,6 +54,8 @@ function ModalOrder({ modal, setCloseModal, order, classes, count, cost }) {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <Divider className={classes.divider} />
+
               <div className={classes.total}>
                 <Typography>Заказ на сумму: {cost} руб.</Typography>
                 <Typography>Количество товара: {count} шт.</Typography>

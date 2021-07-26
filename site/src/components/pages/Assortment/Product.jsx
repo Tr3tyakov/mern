@@ -68,9 +68,8 @@ function Product({ classes }) {
                   image="https://pmdn.sokolov.io/pics/10/DF/481AE34C6D7DFE877F10081C0C48.jpg"
                 />
                 <CardContent>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    This impressive paella is a perfect party dish and a fun meal to cook together
-                    with your guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                  <Typography variant="h6" component="p">
+                    {element.cost} Руб.
                   </Typography>
                 </CardContent>
               </Card>

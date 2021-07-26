@@ -4,6 +4,9 @@ const Token = require('../TokenService/userToken');
 
 class productService {
   async createProduct(name, image, cost, RefreshToken, categoryId) {
+    if (!RefreshToken) {
+      throw Error('Пользователь не авторизован');
+    }
     const check = await Product.findOne({ name });
     if (check) {
       throw Error('Данный продукт уже существует');

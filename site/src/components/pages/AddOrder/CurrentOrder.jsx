@@ -10,7 +10,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import FormControl from '@material-ui/core/FormControl';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Typography from '@material-ui/core/Typography';
@@ -20,12 +19,16 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentProducts } from '../../reducers/actions/asyncProductActions';
 import { increaseCounter, decreaseCounter, setOrder } from '../../reducers/actions/actions';
+import { useSnackbar } from 'notistack';
 import ModalOrder from './ModalOrder';
+import SortProduct from './SortProduct';
 
 function CurrentOrder() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
+  const { enqueueSnackbar } = useSnackbar();
+
   React.useEffect(() => {
     dispatch(getCurrentProducts(location.state.element.title));
   }, []);
@@ -38,9 +41,12 @@ function CurrentOrder() {
       cost: productReducer.cost,
     };
   });
-
+  const [sorting, setSorting] = React.useState('');
   const [modal, setModal] = React.useState(false);
-
+  const sortedItems = React.useMemo(
+    () => product.filter((element) => element.name.toLowerCase().includes(sorting.toLowerCase())),
+    [product, sorting],
+  );
   const increase = (value) => {
     dispatch(increaseCounter(value));
   };
@@ -49,6 +55,7 @@ function CurrentOrder() {
   };
   const addOrder = (name, count, cost) => {
     dispatch(setOrder(name, count, cost));
+    enqueueSnackbar(`${name} был успешно добавлен в ваш заказ`, { variant: 'success' });
   };
   const setOpenModal = () => {
     setModal(true);
@@ -61,24 +68,7 @@ function CurrentOrder() {
       {product.length ? (
         <>
           <div className={classes.flex}>
-            <FormControl fullWidth className={classes.margin} variant="outlined">
-              <TextField
-                id="outlined-adornment-amount"
-                // value={cost}
-                // onChange={validationCost}
-                label="Название продукта"
-                type="text"
-                variant="outlined"
-              />
-            </FormControl>
-            <Button
-              variant="contained"
-              className={classes.btn}
-              size="small"
-              color="primary"
-              onClick={setOpenModal}>
-              Сделать заказ
-            </Button>
+            <SortProduct classes={classes} setSorting={setSorting} setOpenModal={setOpenModal} />
             <ModalOrder
               modal={modal}
               setCloseModal={setCloseModal}
@@ -86,6 +76,7 @@ function CurrentOrder() {
               classes={classes}
               count={count}
               cost={cost}
+              sorting={sorting}
             />
           </div>
           <TableContainer component={Paper}>
@@ -101,7 +92,7 @@ function CurrentOrder() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {product.map((element) => {
+                {sortedItems.map((element) => {
                   return (
                     <TableRow key={element.name}>
                       <TableCell component="th" scope="row">
@@ -141,8 +132,13 @@ function CurrentOrder() {
                       <TableCell align="right">
                         <Button
                           variant="contained"
+                          color="secondary"
                           onClick={() =>
-                            addOrder(element.name, qty[element._id]?.count, qty[element._id]?.cost)
+                            addOrder(
+                              element.name,
+                              qty[element._id]?.count || 1,
+                              qty[element._id]?.cost || element.cost,
+                            )
                           }>
                           Добавить
                         </Button>

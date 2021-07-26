@@ -3,10 +3,15 @@ import categoryService from '../../utils/Services/categoryService';
 
 export const createCategory = (title) => {
   return async (dispatch) => {
-    dispatch(setLoading(true));
-    const categoryData = await categoryService.createCategory(title);
-    dispatch(makeCategory(categoryData.data));
-    dispatch(setLoading(false));
+    try {
+      dispatch(setLoading(true));
+      const categoryData = await categoryService.createCategory(title);
+      console.log(categoryData);
+      dispatch(makeCategory(categoryData.data));
+      dispatch(setLoading(false));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
@@ -22,7 +27,7 @@ export const getCategory = () => {
 export const deleteCurrentCategory = (id) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
-    const categoryData = await categoryService.deleteCategory(id);
+    await categoryService.deleteCategory(id);
     dispatch(deleteCategory(id));
     dispatch(deleteProductAll());
     dispatch(setLoading(false));

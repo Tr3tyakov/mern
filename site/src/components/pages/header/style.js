@@ -1,5 +1,4 @@
 import makeStyles from '@material-ui/styles/makeStyles';
-const drawerWidth = '280px';
 export const useStyles = makeStyles({
   modal: {
     display: 'flex',
@@ -43,8 +42,5 @@ export const useStyles = makeStyles({
   flex: {
     margin: '102px 0 0 0',
     display: 'flex',
-  },
-  menuButton: {
-    marginRight: 'auto',
   },
 });

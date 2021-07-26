@@ -17,7 +17,6 @@ const theme = createTheme({
     default: '20px 0',
   },
 });
-
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>

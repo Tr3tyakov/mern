@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Container, TextField, Typography, Button } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setPassword, setEmail } from '../../reducers/actions/actions';
 import { registration, login } from '../../reducers/actions/asyncAuthActions';
 

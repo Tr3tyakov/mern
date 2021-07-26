@@ -25,3 +25,6 @@ export const ORDER = 'ORDER';
 //drawer
 export const MENU = 'MENU';
 export const DRAWER = 'DRAWER';
+
+//error
+export const ERROR = 'ERROR';

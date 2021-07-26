@@ -5,6 +5,7 @@ class productController {
     try {
       const { name, img, cost, categoryId } = req.body;
       const { RefreshToken } = req.cookies;
+
       const productData = await productService.createProduct(
         name,
         img,

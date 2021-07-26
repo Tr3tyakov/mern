@@ -17,7 +17,6 @@ const initialState = {
 };
 
 export const productReducer = (state = initialState, action) => {
-  console.log(action.payload);
   switch (action.type) {
     case PUT_PRODUCT:
       return { ...state, product: action.payload };

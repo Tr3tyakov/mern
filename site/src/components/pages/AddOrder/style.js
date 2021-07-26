@@ -25,16 +25,19 @@ export const useStyles = makeStyles({
     display: 'flex',
     margin: '0 0 30px 0',
   },
+  formBtn: {
+    margin: '0 10px',
+    width: '100px',
+  },
   btn: {
-    margin: '0 0 0 20px',
+    marginLeft: 'auto',
     width: '200px',
   },
   count: {
-    width: '80px',
+    width: '50px',
   },
   qtyBtn: {
     margin: '0 10px',
-    width: '',
   },
   modal: {
     display: 'flex',
@@ -52,5 +55,16 @@ export const useStyles = makeStyles({
     marginTop: '15px',
     display: 'flex',
     flexDirection: 'column',
+  },
+  tableContainer: {
+    height: '300px',
+    overflow: 'auto',
+  },
+  makeOrder: {
+    margin: '20px 0',
+    display: 'flex',
+  },
+  orderButton: {
+    margin: '0 10px',
   },
 });

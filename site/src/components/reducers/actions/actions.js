@@ -18,6 +18,7 @@ import {
   INCREASE_COUNTER,
   DECREASE_COUNTER,
   ORDER,
+  ERROR,
 } from '../constants/constants';
 
 //authModal
@@ -47,3 +48,5 @@ export const setOrder = (name, count, cost) => ({ type: ORDER, payload: { name, 
 //header
 export const setDrawer = (value) => ({ type: DRAWER, payload: value });
 export const setMenu = (value) => ({ type: MENU, payload: value });
+
+export const setError = (value) => ({ type: ERROR, payload: value });

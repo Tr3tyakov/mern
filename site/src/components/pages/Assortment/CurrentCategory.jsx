@@ -14,11 +14,12 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createProduct, getCurrentProducts } from '../../reducers/actions/asyncProductActions';
 import { useStyles } from './style';
-
+import { useSnackbar } from 'notistack';
 function CurrentProduct() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const location = useLocation();
+  const { enqueueSnackbar } = useSnackbar();
   React.useEffect(() => {
     dispatch(getCurrentProducts(location.state.title));
   }, []);
@@ -59,7 +60,8 @@ function CurrentProduct() {
     if (title !== '' && cost !== '' && file !== '') {
       return dispatch(createProduct(title, file, cost, location.state.title));
     }
-    console.log(2);
+
+    enqueueSnackbar('Ошибка при создании', { variant: 'error' });
   };
 
   return (
