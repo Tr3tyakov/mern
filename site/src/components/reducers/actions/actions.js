@@ -18,6 +18,8 @@ import {
   INCREASE_COUNTER,
   DECREASE_COUNTER,
   ORDER,
+  SET_ORDER,
+  MAKE_ORDER,
   ERROR,
 } from '../constants/constants';
 
@@ -50,3 +52,7 @@ export const setDrawer = (value) => ({ type: DRAWER, payload: value });
 export const setMenu = (value) => ({ type: MENU, payload: value });
 
 export const setError = (value) => ({ type: ERROR, payload: value });
+
+//order
+export const setOrders = (value) => ({ type: SET_ORDER, payload: value });
+export const makeOrder = (value) => ({ type: MAKE_ORDER, payload: value });

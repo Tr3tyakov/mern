@@ -7,6 +7,7 @@ import AddOrder from './components/pages/AddOrder/AddOrder';
 import Home from './components/pages/home/Home';
 import CurrentOrder from './components/pages/AddOrder/CurrentOrder';
 import { SnackbarProvider } from 'notistack';
+import History from './components/pages/History/History';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path={'/assortment/:id'} exact component={CurrentProduct} />
           <Route path={'/add order'} exact component={AddOrder} />
           <Route path={'/add order/:id'} exact component={CurrentOrder} />
+          <Route path={'/history'} exact component={History} />
         </Switch>
       </BrowserRouter>
     </SnackbarProvider>

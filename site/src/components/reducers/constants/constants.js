@@ -28,3 +28,7 @@ export const DRAWER = 'DRAWER';
 
 //error
 export const ERROR = 'ERROR';
+
+//order
+export const SET_ORDER = 'SET_ORDER';
+export const MAKE_ORDER = 'MAKE_ORDER';

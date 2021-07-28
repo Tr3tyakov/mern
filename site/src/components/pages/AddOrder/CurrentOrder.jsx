@@ -19,6 +19,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentProducts } from '../../reducers/actions/asyncProductActions';
 import { increaseCounter, decreaseCounter, setOrder } from '../../reducers/actions/actions';
+import { createOrder } from '../../reducers/actions/asyncOrderAction';
 import { useSnackbar } from 'notistack';
 import ModalOrder from './ModalOrder';
 import SortProduct from './SortProduct';
@@ -50,6 +51,10 @@ function CurrentOrder() {
   const increase = (value) => {
     dispatch(increaseCounter(value));
   };
+
+  const createOrderOnServer = () => {
+    dispatch(createOrder(order, cost, count));
+  };
   const decrease = (value) => {
     dispatch(decreaseCounter(value));
   };
@@ -77,6 +82,7 @@ function CurrentOrder() {
               count={count}
               cost={cost}
               sorting={sorting}
+              createOrderOnServer={createOrderOnServer}
             />
           </div>
           <TableContainer component={Paper}>

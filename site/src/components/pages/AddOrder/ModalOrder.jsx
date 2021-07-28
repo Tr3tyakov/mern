@@ -12,8 +12,9 @@ import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
+import { useDispatch } from 'react-redux';
 
-function ModalOrder({ modal, setCloseModal, order, classes, count, cost }) {
+function ModalOrder({ modal, setCloseModal, order, classes, count, cost, createOrderOnServer }) {
   return (
     <Modal open={modal} onClose={setCloseModal} className={classes.modal}>
       {order.length ? (
@@ -63,7 +64,7 @@ function ModalOrder({ modal, setCloseModal, order, classes, count, cost }) {
 
               <Divider className={classes.divider} />
 
-              <Button variant="contained" color="primary" fullWidth>
+              <Button variant="contained" color="primary" fullWidth onClick={createOrderOnServer}>
                 Оформить заказ
               </Button>
             </form>

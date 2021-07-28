@@ -94,9 +94,6 @@ function Assortment() {
   };
   return (
     <Container className={classes.container}>
-      <Backdrop className={classes.backdrop} open={isLoading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
       <div className={classes.titleBlock}>
         <Typography variant="h4" className={classes.title}>
           Категории

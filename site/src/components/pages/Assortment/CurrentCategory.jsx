@@ -61,7 +61,7 @@ function CurrentProduct() {
       return dispatch(createProduct(title, file, cost, location.state.title));
     }
 
-    enqueueSnackbar('Ошибка при создании', { variant: 'error' });
+    enqueueSnackbar('Ошибка при создании, поля не заполнены', { variant: 'error' });
   };
 
   return (

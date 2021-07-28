@@ -8,7 +8,6 @@ import { NavLink as Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 const titles = [
-  { title: 'Обзор', link: 'categories', img: <AssessmentIcon /> },
   { title: 'История', link: 'history', img: <AccessTimeIcon /> },
   { title: 'Добавить заказ', link: 'Add order', img: <AddIcon /> },
   { title: 'Ассортимент', link: 'assortment', img: <ListIcon /> },
