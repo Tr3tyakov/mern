@@ -10,9 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
-import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
-import { useDispatch } from 'react-redux';
 
 function CurrentOrderModal({ orderModal, closeModalOrder, classes, products, element }) {
   return (

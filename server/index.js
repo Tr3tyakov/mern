@@ -8,16 +8,24 @@ const categoryRouter = require('./routers/categoryRouter');
 const productRouter = require('./routers/productRouter');
 const orderRouter = require('./routers/orderRouter');
 const ErrorHandler = require('./middleware/ErrorHandler');
-const app = express();
+const fileUpload = require('express-fileupload');
 const PORT = process.env.PORT || 5000;
+const app = express();
 app.use(express.json());
+app.use(express.static('static'));
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
     origin: process.env.SITE_URL,
   }),
 );
-app.use(cookieParser());
+app.use(
+  fileUpload({
+    createParentPath: true,
+  }),
+);
+
 app.use('/api', userRouter);
 app.use('/api', categoryRouter);
 app.use('/api', productRouter);

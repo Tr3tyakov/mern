@@ -3,7 +3,7 @@ const TokenService = require('../TokenService/userToken');
 function authCheck(req, res, next) {
   const Authorization = req.headers.authorization;
   if (!Authorization) {
-    throw Error('Пользователь не авторизован1');
+    throw Error('Пользователь не авторизован');
   }
   const accessToken = Authorization.split(' ')[1];
   const userData = TokenService.verifyAccessToken(accessToken);

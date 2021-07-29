@@ -12,7 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
 import Auth from './AuthModal';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModal, setMenu, setDrawer } from '../../reducers/actions/actions';
 import { logout } from '../../reducers/actions/asyncAuthActions';
@@ -29,7 +29,6 @@ function Header() {
         password: authReducer.password,
         isAuth: authReducer.isAuth,
         openModal: authReducer.openModal,
-
         openMenu: headerReducer.openMenu,
         openDrawer: headerReducer.openDrawer,
       };

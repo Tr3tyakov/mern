@@ -43,4 +43,8 @@ export const useStyles = makeStyles({
     margin: '102px 0 0 0',
     display: 'flex',
   },
+  backdrop: {
+    zIndex: 1222,
+    color: '#fff',
+  },
 });

@@ -55,14 +55,6 @@ class UserController {
       next(e);
     }
   }
-
-  async getProducts(req, res, next) {
-    try {
-      res.json(123124);
-    } catch (e) {
-      next(e);
-    }
-  }
 }
 
 module.exports = new UserController();

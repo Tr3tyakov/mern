@@ -6,10 +6,18 @@ import CurrentProduct from './components/pages/Assortment/CurrentCategory';
 import AddOrder from './components/pages/AddOrder/AddOrder';
 import Home from './components/pages/home/Home';
 import CurrentOrder from './components/pages/AddOrder/CurrentOrder';
-import { SnackbarProvider } from 'notistack';
 import History from './components/pages/History/History';
-
+import { SnackbarProvider } from 'notistack';
+import { checkAuth } from './components/reducers/actions/asyncAuthActions';
+import { useDispatch } from 'react-redux';
 function App() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    if (localStorage.getItem('Token')) {
+      dispatch(checkAuth());
+    }
+  }, []);
+
   return (
     <SnackbarProvider maxSnack={3}>
       <BrowserRouter>

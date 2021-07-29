@@ -13,12 +13,19 @@ import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Typography from '@material-ui/core/Typography';
-
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 import { useStyles } from './style';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentProducts } from '../../reducers/actions/asyncProductActions';
-import { increaseCounter, decreaseCounter, setOrder } from '../../reducers/actions/actions';
+import {
+  setClearOrder,
+  increaseCounter,
+  decreaseCounter,
+  setOrder,
+  setClearQty,
+} from '../../reducers/actions/actions';
 import { createOrder } from '../../reducers/actions/asyncOrderAction';
 import { useSnackbar } from 'notistack';
 import ModalOrder from './ModalOrder';
@@ -53,7 +60,10 @@ function CurrentOrder() {
   };
 
   const createOrderOnServer = () => {
+    setModal(false);
     dispatch(createOrder(order, cost, count));
+    dispatch(setClearQty());
+    dispatch(setClearOrder());
   };
   const decrease = (value) => {
     dispatch(decreaseCounter(value));
@@ -70,6 +80,14 @@ function CurrentOrder() {
   };
   return (
     <Container>
+      <Breadcrumbs aria-label="breadcrumb" gutterBottom>
+        <Link color="inherit" href="/add order">
+          Add order
+        </Link>
+        <Link color="textPrimary" href={`/assortment/${location.state.title}`} aria-current="page">
+          {location.state.element.title}
+        </Link>
+      </Breadcrumbs>
       {product.length ? (
         <>
           <div className={classes.flex}>

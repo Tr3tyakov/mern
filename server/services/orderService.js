@@ -6,8 +6,6 @@ class OrderSerivce {
     const data = await TokenService.findToken(RefreshToken);
     const lastOrder = await Order.findOne({ user: data.user }).sort({ data: -1 });
     const maxOrder = lastOrder ? lastOrder.order : 0;
-    console.log(lastOrder, 'lastOrder');
-    console.log(maxOrder, 'MAX');
     const orderData = await Order.create({
       user: data.user,
       products: order,
@@ -18,11 +16,11 @@ class OrderSerivce {
   }
   async getOrder(size) {
     if (!size) {
-      size = 1;
+      size = 4;
     }
     const limit = parseInt(size);
+    console.log(limit);
     const orderData = await Order.find().limit(limit);
-    console.log(orderData, '4324');
     return orderData;
   }
 }

@@ -6,11 +6,11 @@ export const createCategory = (title) => {
     try {
       dispatch(setLoading(true));
       const categoryData = await categoryService.createCategory(title);
-      console.log(categoryData);
       dispatch(makeCategory(categoryData.data));
-      dispatch(setLoading(false));
     } catch (e) {
       console.log(e);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 };
@@ -18,18 +18,26 @@ export const createCategory = (title) => {
 export const getCategory = () => {
   return async (dispatch) => {
     dispatch(setLoading(true));
-    const categoryData = await categoryService.getCategory();
-    dispatch(setCategory(categoryData.data));
-    dispatch(setLoading(false));
+    try {
+      const categoryData = await categoryService.getCategory();
+      dispatch(setCategory(categoryData.data));
+    } catch (e) {
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 };
 
 export const deleteCurrentCategory = (id) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
-    await categoryService.deleteCategory(id);
-    dispatch(deleteCategory(id));
-    dispatch(deleteProductAll());
-    dispatch(setLoading(false));
+    try {
+      await categoryService.deleteCategory(id);
+      dispatch(deleteCategory(id));
+      dispatch(deleteProductAll());
+    } catch (e) {
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 };

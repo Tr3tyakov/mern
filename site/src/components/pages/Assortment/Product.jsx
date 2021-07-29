@@ -9,9 +9,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { deleteCurrentProduct } from '../../reducers/actions/asyncProductActions';
+import {
+  deleteCurrentProduct,
+  patchCurrentProduct,
+} from '../../reducers/actions/asyncProductActions';
+
 function Product({ classes }) {
   const dispatch = useDispatch();
   const product = useSelector(({ productReducer }) => productReducer.product);
@@ -30,6 +33,10 @@ function Product({ classes }) {
   const deleteProduct = (id) => {
     setMenu({ ...menu, id: null, anchor: null });
     dispatch(deleteCurrentProduct(id));
+  };
+  const patchProduct = (id) => {
+    closeMenu();
+    dispatch(patchCurrentProduct(id));
   };
 
   return (
@@ -65,7 +72,7 @@ function Product({ classes }) {
                 />
                 <CardMedia
                   className={classes.media}
-                  image="https://pmdn.sokolov.io/pics/10/DF/481AE34C6D7DFE877F10081C0C48.jpg"
+                  image={`http://localhost:5000/${element.image}`}
                 />
                 <CardContent>
                   <Typography variant="h6" component="p">

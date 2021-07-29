@@ -1,7 +1,6 @@
 import Divider from '@material-ui/core/Divider';
 import { Drawer, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import AssessmentIcon from '@material-ui/icons/Assessment';
 import AddIcon from '@material-ui/icons/Add';
 import ListIcon from '@material-ui/icons/List';
 import { NavLink as Link } from 'react-router-dom';

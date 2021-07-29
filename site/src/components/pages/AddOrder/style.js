@@ -20,11 +20,13 @@ export const useStyles = makeStyles({
   },
   link: {
     textDecoration: 'none',
+    width: '200px',
   },
   flex: {
     display: 'flex',
     margin: '0 0 30px 0',
   },
+
   formBtn: {
     margin: '0 10px',
     width: '100px',
@@ -66,5 +68,9 @@ export const useStyles = makeStyles({
   },
   orderButton: {
     margin: '0 10px',
+  },
+  backdrop: {
+    zIndex: 1222,
+    color: '#fff',
   },
 });

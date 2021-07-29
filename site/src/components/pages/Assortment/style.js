@@ -10,6 +10,9 @@ export const useStyles = makeStyles({
     borderRadius: '5px',
     overflow: 'hidden',
   },
+  paper: {
+    width: '100%',
+  },
   order: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -20,9 +23,14 @@ export const useStyles = makeStyles({
     margin: '0 0 20px',
     width: '100%',
   },
+  form: {
+    width: '100%',
+    margin: '100%',
+  },
   flex: {
     display: 'flex',
   },
+
   btns: {
     margin: '10px 0 10px',
     display: 'flex',

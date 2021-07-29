@@ -21,6 +21,8 @@ import {
   SET_ORDER,
   MAKE_ORDER,
   ERROR,
+  CLEAR_QTY,
+  CLEAR_ORDER,
 } from '../constants/constants';
 
 //authModal
@@ -56,3 +58,6 @@ export const setError = (value) => ({ type: ERROR, payload: value });
 //order
 export const setOrders = (value) => ({ type: SET_ORDER, payload: value });
 export const makeOrder = (value) => ({ type: MAKE_ORDER, payload: value });
+
+export const setClearQty = () => ({ type: CLEAR_QTY });
+export const setClearOrder = () => ({ type: CLEAR_ORDER });

@@ -6,10 +6,12 @@ export const createOrder = (order, fullPrice) => {
     dispatch(setLoading(true));
     try {
       const orderData = await orderService.createOrder(order, fullPrice);
-      console.log(orderData, 'orderData');
       dispatch(setOrders(orderData.data));
       dispatch(setLoading(false));
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 };
 
@@ -18,9 +20,11 @@ export const getOrder = (size) => {
     dispatch(setLoading(true));
     try {
       const orderData = await orderService.getOrder(size);
-      console.log(orderData);
       dispatch(setOrders(orderData.data));
       dispatch(setLoading(false));
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 };

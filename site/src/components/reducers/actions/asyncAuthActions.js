@@ -3,8 +3,13 @@ import { setAuth, setLoading, setModal } from './actions';
 export const registration = (email, password) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
-    await AuthService.registration(email, password);
-    dispatch(setLoading(false));
+    try {
+      await AuthService.registration(email, password);
+    } catch (e) {
+      alert(e.response?.data?.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 };
 export const login = (email, password) => {
@@ -24,8 +29,30 @@ export const login = (email, password) => {
 };
 export const logout = () => {
   return async (dispatch) => {
-    await AuthService.logout();
-    dispatch(setAuth(false));
-    localStorage.clear('Token');
+    dispatch(setLoading(false));
+    try {
+      await AuthService.logout();
+      dispatch(setAuth(false));
+      localStorage.clear('Token');
+    } catch (e) {
+      alert(e.response?.data?.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const checkAuth = () => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const authData = await AuthService.checkAuth();
+      localStorage.setItem('Token', authData.data.accessToken);
+      dispatch(setAuth(true));
+    } catch (e) {
+      alert(e.response.data.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 };

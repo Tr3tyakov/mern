@@ -6,7 +6,6 @@ class Category {
     try {
       const { title } = req.body;
       const { RefreshToken } = req.cookies;
-
       const categoryData = await CategoryService.createCategory(RefreshToken, title);
       res.json(categoryData);
     } catch (e) {
@@ -24,7 +23,8 @@ class Category {
   async deleteCategory(req, res, next) {
     try {
       const id = req.params.id;
-      const categoryData = await CategoryService.deleteCategory();
+
+      const categoryData = await CategoryService.deleteCategory(id);
       const productData = await productService.deleteAll(id);
 
       res.json(categoryData);

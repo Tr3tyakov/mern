@@ -12,7 +12,6 @@ import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
-import { useDispatch } from 'react-redux';
 
 function ModalOrder({ modal, setCloseModal, order, classes, count, cost, createOrderOnServer }) {
   return (

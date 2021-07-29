@@ -6,6 +6,7 @@ import {
   INCREASE_COUNTER,
   DECREASE_COUNTER,
   ORDER,
+  CLEAR_QTY,
 } from './constants/constants';
 
 const initialState = {
@@ -87,6 +88,8 @@ export const productReducer = (state = initialState, action) => {
       const cost = orderState.order.reduce((total, element) => total + element.cost, 0);
       return { ...state, order: [...orderState.order], count, cost };
     }
+    case CLEAR_QTY:
+      return { ...state, order: [], count: 0, cost: 0, qty: {} };
     default:
       return state;
   }

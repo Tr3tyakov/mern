@@ -11,4 +11,7 @@ export default class AuthServices {
   static async logout() {
     return axios.get(`${URL}/logout`, { withCredentials: true });
   }
+  static async checkAuth() {
+    return axios.get(`${URL}/refresh`, { withCredentials: true });
+  }
 }

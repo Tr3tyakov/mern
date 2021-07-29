@@ -3,7 +3,7 @@ import { EMAIL, AUTH_MODAL, PASSWORD, AUTH, LOADING } from './constants/constant
 const initialState = {
   email: '',
   password: '',
-  isAuth: '',
+  isAuth: false,
   isLoading: false,
   openModal: false,
 };

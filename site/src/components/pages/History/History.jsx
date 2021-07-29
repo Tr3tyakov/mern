@@ -16,10 +16,17 @@ import { Container } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import CurrentOrderModal from './CurrentOrderModal';
 import Filters from './Filters';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
 function History() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const orders = useSelector(({ orderReducer }) => orderReducer.orders);
+  const { orders, isLoading } = useSelector(({ orderReducer, authReducer }) => {
+    return {
+      orders: orderReducer.orders,
+      isLoading: authReducer.isLoading,
+    };
+  });
   const [filter, setFilter] = React.useState(false);
   const [size, setSize] = React.useState(1);
   const [startDate, setStartDate] = React.useState('');
@@ -45,7 +52,6 @@ function History() {
       ),
     [orderNumber, orders, startDate, endDate],
   );
-  console.log(filterOrders);
   const filterContainer = () => {
     setFilter(!filter);
   };
@@ -56,7 +62,7 @@ function History() {
     setOrderModal({ ...orderModal, id: '' });
   };
   const increaseSize = () => {
-    setSize(size + 1);
+    setSize(size + 3);
   };
   const changeOrderNumber = (event) => {
     const value = event.target.value;
@@ -74,6 +80,9 @@ function History() {
 
   return (
     <Container>
+      <Backdrop className={classes.backdrop} open={isLoading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className={classes.flex}>
         <Typography variant="h6"> История заказов</Typography>
         <Button
@@ -95,7 +104,6 @@ function History() {
       ) : (
         ''
       )}
-
       <TableContainer className={classes.tableContainer}>
         <Table className={classes.table}>
           <TableHead>
@@ -114,7 +122,9 @@ function History() {
                   <TableCell component="th" scope="row">
                     {element.order}
                   </TableCell>
-                  <TableCell align="center"> {new Date(element.data).toLocaleString('')}</TableCell>
+                  <TableCell align="center">
+                    {element && new Date(element.data).toLocaleString()}
+                  </TableCell>
                   <TableCell align="center">{element.fullPrice} руб.</TableCell>
                   <TableCell align="center">
                     <Button variant="contained" onClick={() => openModalOrder(element._id)}>

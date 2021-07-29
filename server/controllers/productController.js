@@ -3,12 +3,12 @@ const productService = require('../services/productService');
 class productController {
   async createProduct(req, res, next) {
     try {
-      const { name, img, cost, categoryId } = req.body;
+      const { name, cost, categoryId } = req.body;
       const { RefreshToken } = req.cookies;
-
+      const file = req.files;
       const productData = await productService.createProduct(
         name,
-        img,
+        file,
         cost,
         RefreshToken,
         categoryId,
@@ -41,6 +41,15 @@ class productController {
       const id = req.params.id;
       const productData = await productService.deleteProduct(id);
       res.json(productData);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async patchProduct(req, res, next) {
+    try {
+      const id = req.params.id;
+      const productData = await productService.patchProduct(id);
+      res.json(produtcData);
     } catch (e) {
       next(e);
     }

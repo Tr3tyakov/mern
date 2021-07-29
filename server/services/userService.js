@@ -63,7 +63,6 @@ class UserService {
     const user = await User.findById(checkToken.user);
     const userDto = new UserDto(user);
     const tokens = TokenService.generateToken(userDto);
-    console.log(tokens);
     await TokenService.refresh(userDto.id, tokens.refreshToken);
 
     return { ...userDto, ...tokens };

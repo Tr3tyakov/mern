@@ -1,15 +1,15 @@
 import React from 'react';
-import {
-  Container,
-  Typography,
-  TextField,
-  Button,
-  CardMedia,
-  FormControl,
-  IconButton,
-} from '@material-ui/core';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Product from './Product';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CardMedia from '@material-ui/core/CardMedia';
+import FormControl from '@material-ui/core/FormControl';
+import IconButton from '@material-ui/core/IconButton';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createProduct, getCurrentProducts } from '../../reducers/actions/asyncProductActions';
@@ -24,7 +24,8 @@ function CurrentProduct() {
     dispatch(getCurrentProducts(location.state.title));
   }, []);
 
-  const [file, setfile] = React.useState('');
+  const [file, setFile] = React.useState('');
+  const [img, setImg] = React.useState('');
   const [errors, setErrors] = React.useState({
     input: false,
     cost: false,
@@ -32,11 +33,15 @@ function CurrentProduct() {
   const [title, setTitle] = React.useState('');
   const [cost, setCost] = React.useState('');
 
-  const createFile = (e) => {
-    let url = URL.createObjectURL(e.target?.files[0]);
-    setfile(url);
+  const createFile = (event) => {
+    event.preventDefault();
+    if (event.target.files[0]) {
+      let img = URL.createObjectURL(event.target.files[0]);
+      let file = event.target.files[0];
+      setFile(file);
+      setImg(img);
+    }
   };
-
   const validationProductInput = (event) => {
     const value = event.target.value;
     const check = RegExp(/^\d/).test(value);
@@ -58,7 +63,10 @@ function CurrentProduct() {
   };
   const makeProduct = () => {
     if (title !== '' && cost !== '' && file !== '') {
-      return dispatch(createProduct(title, file, cost, location.state.title));
+      dispatch(createProduct(title, file, cost, location.state.title));
+      setFile('');
+      setTitle('');
+      return setCost('');
     }
 
     enqueueSnackbar('Ошибка при создании, поля не заполнены', { variant: 'error' });
@@ -67,6 +75,17 @@ function CurrentProduct() {
   return (
     <>
       <Container maxWidth="lg" className={classes.container}>
+        <Breadcrumbs aria-label="breadcrumb" gutterBottom>
+          <Link color="inherit" href="/assortment">
+            Assortment
+          </Link>
+          <Link
+            color="textPrimary"
+            href={`/assortment/${location.state.title}`}
+            aria-current="page">
+            {location.state.title}
+          </Link>
+        </Breadcrumbs>
         <div>
           <Typography variant="h4" gutterBottom>
             Добавить продукт
@@ -118,7 +137,7 @@ function CurrentProduct() {
           </div>
 
           {file && (
-            <CardMedia component="img" className={classes.uploadImg} image={file}></CardMedia>
+            <CardMedia component="img" className={classes.uploadImg} image={img}></CardMedia>
           )}
         </div>
       </Container>
