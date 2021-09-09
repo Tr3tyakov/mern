@@ -4,8 +4,8 @@ export const useStyles = makeStyles({
     display: 'none',
   },
   uploadImg: {
-    height: '100%',
-    width: '400px',
+    height: '200px',
+    width: '200px',
     objectFit: 'cover',
     borderRadius: '5px',
     overflow: 'hidden',
@@ -59,5 +59,10 @@ export const useStyles = makeStyles({
   },
   divider: {
     margin: '20px 0',
+  },
+  imageBox: {
+    width: '100px',
+    height: '100px',
+    background: '#3f51b5',
   },
 });

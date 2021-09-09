@@ -9,6 +9,7 @@ import {
   Backdrop,
   ListItemText,
   CircularProgress,
+  CardMedia,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -16,7 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCategory, deleteCurrentCategory } from '../../reducers/actions/asyncCategoryActions';
 
-import AssortmentModal from './Modal';
+import AssortmentModal from './AssortmentModal';
+import { serverURL } from '../../utils/http/axios';
 const useStyles = makeStyles({
   paper: {
     position: 'absolute',
@@ -24,6 +26,7 @@ const useStyles = makeStyles({
     left: '50%',
     transform: 'translate(-50%,-50%)',
     maxWidth: '400px',
+    width: '100%',
     backgroundColor: 'white',
     padding: '20px',
     borderRadius: '10px',
@@ -41,7 +44,6 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
     height: '100%',
   },
   formButton: {
@@ -67,6 +69,44 @@ const useStyles = makeStyles({
   backdrop: {
     zIndex: 1221,
     color: '#fff',
+  },
+  uploadImg: {
+    display: 'none',
+  },
+  imageBox: {
+    width: '100%',
+    background: '#D9E1FF',
+    borderRadius: '5px',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px',
+    border: '1px solid #D9E1FF',
+  },
+  imageBoxError: {
+    border: '1px solid red',
+  },
+  uploadBox: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '80px!important',
+    height: '80px!important',
+    background: '#E7EAF9',
+    borderRadius: '10px',
+    overflow: 'hidden',
+    justifyContent: 'center',
+  },
+  label: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    width: '100%',
+    height: '100%',
+  },
+  imageCategory: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
 });
 
@@ -110,7 +150,6 @@ function Assortment() {
 
       <Grid item xs={12}>
         {category.map((element) => {
-          console.log(element._id);
           return (
             <div className={classes.currentProduct} key={element._id}>
               <Link

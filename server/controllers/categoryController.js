@@ -5,8 +5,9 @@ class Category {
   async createCategory(req, res, next) {
     try {
       const { title } = req.body;
+      const file = req.files;
       const { RefreshToken } = req.cookies;
-      const categoryData = await CategoryService.createCategory(RefreshToken, title);
+      const categoryData = await CategoryService.createCategory(RefreshToken, title, file);
       res.json(categoryData);
     } catch (e) {
       next(e);

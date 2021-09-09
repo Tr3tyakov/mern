@@ -36,20 +36,21 @@ class UserController {
       next(e);
     }
   }
-  async activate(req, res, next) {
-    try {
-      const { link } = req.params;
-      const userData = await UserService.activate(link);
-      res.json(userData);
-    } catch (e) {
-      next(e);
-    }
-  }
   async refresh(req, res, next) {
     try {
       const { RefreshToken } = req.cookies;
       const userData = await UserService.refresh(RefreshToken);
       res.cookie('RefreshToken', userData.refreshToken, { httpOnly: true });
+      res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async activate(req, res, next) {
+    try {
+      const { link } = req.params;
+      console.log(link);
+      const userData = await UserService.activate(link);
       res.json(userData);
     } catch (e) {
       next(e);

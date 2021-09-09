@@ -1,8 +1,15 @@
 import { api } from '../http/axios';
 
 export default class CategoryService {
-  static async createCategory(title) {
-    return await api.post(`/category`, { title });
+  static async createCategory(title, file) {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('file', file);
+    return await api.post(`/category`, formData, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
+    });
   }
 
   static async getCategory() {

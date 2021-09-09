@@ -15,11 +15,14 @@ import { useDispatch } from 'react-redux';
 import { createProduct, getCurrentProducts } from '../../reducers/actions/asyncProductActions';
 import { useStyles } from './style';
 import { useSnackbar } from 'notistack';
+import CheckIcon from '@material-ui/icons/Check';
+
 function CurrentProduct() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
+
   React.useEffect(() => {
     dispatch(getCurrentProducts(location.state.title));
   }, []);
@@ -130,12 +133,11 @@ function CurrentProduct() {
 
               <label htmlFor="button-file">
                 <IconButton color="primary" aria-label="upload picture" component="span">
-                  <PhotoCamera />
+                  {file ? <CheckIcon /> : <PhotoCamera />}
                 </IconButton>
               </label>
             </div>
           </div>
-
           {file && (
             <CardMedia component="img" className={classes.uploadImg} image={img}></CardMedia>
           )}

@@ -7,6 +7,7 @@ export const useStyles = makeStyles({
   root: {
     maxWidth: 265,
     margin: '6px',
+    // padding: '10px',
   },
   media: {
     margin: 'auto',
@@ -72,5 +73,14 @@ export const useStyles = makeStyles({
   backdrop: {
     zIndex: 1222,
     color: '#fff',
+  },
+  categoryTitle: {
+    position: 'absolute',
+    color: 'white',
+    top: '50%',
+    left: '50%',
+    fontSize: '35px',
+    fontWeight: 600,
+    transform: 'translate(-50%,-50%)',
   },
 });

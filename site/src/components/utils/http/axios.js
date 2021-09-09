@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const URL = 'http://localhost:5000/api';
-
+export const serverURL = 'http://localhost:5000';
 export const api = axios.create({
   baseURL: URL,
   withCredentials: true,

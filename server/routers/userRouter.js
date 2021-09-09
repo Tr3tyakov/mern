@@ -1,7 +1,6 @@
 const Router = require('express');
 const router = new Router();
 const UserController = require('../controllers/userController');
-const authCheck = require('../middleware/authCheck');
 const { check } = require('express-validator');
 
 router.post(

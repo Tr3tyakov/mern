@@ -8,6 +8,8 @@ import { useStyles } from './style';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
+import { Box, CardMedia } from '@material-ui/core';
+import { serverURL } from '../../utils/http/axios';
 function AddOrder() {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -35,7 +37,13 @@ function AddOrder() {
                 to={{ pathname: `/add order/${element.title}`, state: { element } }}
                 key={element._id}>
                 <Card className={classes.root}>
-                  <CardHeader title={element.title} />
+                  <Box position="relative">
+                    <CardMedia
+                      className={classes.imageCategory}
+                      component="img"
+                      image={`${serverURL}/${element.file}`}></CardMedia>
+                    <Box className={classes.categoryTitle}>{element.title}</Box>
+                  </Box>
                 </Card>
               </Link>
             );

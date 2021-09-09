@@ -43,10 +43,6 @@ class UserService {
     const check = await TokenService.deleteToken(refreshToken);
     return check;
   }
-  async activate(link) {
-    const check = await User.findOneAndUpdate({ ActivationLink: link }, { isActiveEmail: true });
-    return check;
-  }
 
   async refresh(refreshToken) {
     if (!refreshToken) {
@@ -66,6 +62,13 @@ class UserService {
     await TokenService.refresh(userDto.id, tokens.refreshToken);
 
     return { ...userDto, ...tokens };
+  }
+  async activate(link) {
+    const check = await User.findOneAndUpdate({ ActivationLink: link }, { isActiveEmail: true });
+    return check;
+  }
+  async forgotPassword() {
+    const user = await User.findOneAndUpdate({ ActivationLink: link }, { isActiveEmail: true });
   }
 }
 
