@@ -18,13 +18,18 @@ import { setModal, setMenu, setDrawer } from '../../reducers/actions/actions';
 import { logout } from '../../reducers/actions/asyncAuthActions';
 import { useStyles } from './style';
 import ModalDrawer from './ModalDrawer';
+import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import { CardMedia } from '@material-ui/core';
+import { serverURL } from '../../utils/http/axios';
 
 function Header() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { email, password, isAuth, openModal, openMenu, openDrawer } = useSelector(
+  const { user, email, password, isAuth, openModal, openMenu, openDrawer } = useSelector(
     ({ authReducer, headerReducer }) => {
       return {
+        user: authReducer.user,
         email: authReducer.email,
         password: authReducer.password,
         isAuth: authReducer.isAuth,
@@ -34,7 +39,6 @@ function Header() {
       };
     },
   );
-
   //menu user avatar
   const handleClickMenu = (event) => {
     dispatch(setMenu(event.currentTarget));
@@ -61,6 +65,8 @@ function Header() {
   const setCloseDrawer = () => {
     dispatch(setDrawer(false));
   };
+
+  console.log(user);
   return (
     <>
       <AppBar position="fixed" className={classes.appBar}>
@@ -78,17 +84,35 @@ function Header() {
             keepMounted
             open={Boolean(openMenu)}
             onClose={handleCloseMenu}>
-            <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
-            <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-            <MenuItem onClick={makeLogout}>Logout</MenuItem>
+            <Link to={'/Account'} onClick={handleCloseMenu} className={classes.link}>
+              <MenuItem>My account</MenuItem>
+            </Link>
+            <MenuItem onClick={makeLogout} className={classes.link}>
+              Logout
+            </MenuItem>
           </Menu>
           {isAuth ? (
-            <Avatar
-              alt="Remy Sharp"
-              src="/static/images/avatar/1.jpg"
-              className={classes.avatar}
-              onClick={handleClickMenu}
-            />
+            <Box display="flex" justifyContent="space-between" alignItems="center" maxWidth="300px">
+              <Box margin="0 10px">
+                <Typography variant="body2">{user.email}</Typography>
+              </Box>
+              {user.avatar ? (
+                <CardMedia
+                  width="100%"
+                  height="100%"
+                  component="img"
+                  image={`${serverURL}/${user.avatar}`}
+                  onClick={handleClickMenu}
+                  className={classes.avatar}></CardMedia>
+              ) : (
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/static/images/avatar/1.jpg"
+                  className={classes.avatar}
+                  onClick={handleClickMenu}
+                />
+              )}
+            </Box>
           ) : (
             <Button color="inherit" onClick={handleOpen}>
               Login

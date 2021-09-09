@@ -1,6 +1,7 @@
-import { EMAIL, AUTH_MODAL, PASSWORD, AUTH, LOADING } from './constants/constants';
+import { EMAIL, AUTH_MODAL, PASSWORD, AUTH, LOADING, USER } from './constants/constants';
 
 const initialState = {
+  user: {},
   email: '',
   password: '',
   isAuth: false,
@@ -10,6 +11,8 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case USER:
+      return { ...state, user: action.payload, isAuth: true };
     case EMAIL:
       return { ...state, email: action.payload };
     case PASSWORD:

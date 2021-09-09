@@ -23,6 +23,7 @@ import {
   ERROR,
   CLEAR_QTY,
   CLEAR_ORDER,
+  USER,
 } from '../constants/constants';
 
 //authModal
@@ -31,6 +32,7 @@ export const setPassword = (value) => ({ type: PASSWORD, payload: value });
 export const setAuth = (bool) => ({ type: AUTH, payload: bool });
 export const setLoading = (bool) => ({ type: LOADING, payload: bool });
 export const setModal = (bool) => ({ type: AUTH_MODAL, payload: bool });
+export const setUser = (value) => ({ type: USER, payload: value });
 
 //category
 export const setInputAssortment = (value) => ({ type: INPUT_ASSORTMENT, payload: value });

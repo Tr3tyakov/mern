@@ -16,6 +16,10 @@ export const useStyles = makeStyles({
     borderRadius: '10px',
   },
   avatar: {
+    width: '30px',
+    height: '30px',
+    objectFit: 'cover',
+    borderRadius: '50%',
     cursor: 'pointer',
   },
   flexDrawer: {
@@ -46,5 +50,9 @@ export const useStyles = makeStyles({
   backdrop: {
     zIndex: 1222,
     color: '#fff',
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'white',
   },
 });

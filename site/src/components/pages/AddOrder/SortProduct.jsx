@@ -2,6 +2,7 @@ import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+
 function SortProduct({ classes, setSorting, sorting, setOpenModal }) {
   const makeSort = (event) => {
     const value = event.target.value;

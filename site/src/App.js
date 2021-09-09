@@ -10,8 +10,11 @@ import History from './components/pages/History/History';
 import { SnackbarProvider } from 'notistack';
 import { checkAuth } from './components/reducers/actions/asyncAuthActions';
 import { useDispatch } from 'react-redux';
+import Account from './components/pages/Account/Account';
+
 function App() {
   const dispatch = useDispatch();
+
   React.useEffect(() => {
     if (localStorage.getItem('Token')) {
       dispatch(checkAuth());
@@ -26,6 +29,7 @@ function App() {
           <Route path={'/'} exact component={Home} />
           <Route path={'/assortment'} exact component={Assortment} />
           <Route path={'/assortment/:id'} exact component={CurrentProduct} />
+          <Route path={'/account'} exact component={Account} />
           <Route path={'/add order'} exact component={AddOrder} />
           <Route path={'/add order/:id'} exact component={CurrentOrder} />
           <Route path={'/history'} exact component={History} />

@@ -1,5 +1,6 @@
 const UserService = require('../services/userService.js');
 const { validationResult } = require('express-validator');
+
 class UserController {
   async registration(req, res, next) {
     try {
@@ -10,7 +11,6 @@ class UserController {
       }
       const { email, password } = req.body;
       const userData = await UserService.registration(email, password);
-
       res.json(userData);
     } catch (e) {
       next(e);
@@ -54,6 +54,17 @@ class UserController {
       res.json(userData);
     } catch (e) {
       next(e);
+    }
+  }
+  async changeInfo(req, res, next) {
+    try {
+      const { name, age } = req.body;
+      const file = req.files;
+      const { RefreshToken } = req.cookies;
+      const userData = await UserService.changeInfo(name, age, file, RefreshToken);
+      res.json(userData);
+    } catch (error) {
+      next(error);
     }
   }
 }

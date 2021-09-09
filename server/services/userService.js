@@ -4,7 +4,7 @@ const transportMailer = require('../nodeMailer/userEmail');
 const bcrypt = require('bcrypt');
 const TokenService = require('../TokenService/userToken');
 const UserDto = require('../DTO/userDto');
-const TokenModel = require('../models/users/TokenModel');
+const fileService = require('./fileService');
 
 class UserService {
   async registration(email, password) {
@@ -69,6 +69,20 @@ class UserService {
   }
   async forgotPassword() {
     const user = await User.findOneAndUpdate({ ActivationLink: link }, { isActiveEmail: true });
+  }
+  async changeInfo(name, age, file, refreshToken) {
+    const tokenData = await TokenService.findToken(refreshToken);
+    const user = await User.findById(tokenData.user);
+    if (!user) {
+      throw Error('Пользователь не найден');
+    }
+    const fileName = fileService.saveFile(file);
+    name ? (user.name = name) : '';
+    age ? (user.age = age) : '';
+    file ? (user.avatar = fileName) : '';
+    await user.save();
+    const userDto = new UserDto(user);
+    return userDto;
   }
 }
 

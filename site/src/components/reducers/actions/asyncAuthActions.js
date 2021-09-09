@@ -1,5 +1,6 @@
 import AuthService from '../../utils/Services/authService';
-import { setAuth, setLoading, setModal } from './actions';
+import { setAuth, setLoading, setModal, setUser } from './actions';
+
 export const registration = (email, password) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
@@ -12,12 +13,13 @@ export const registration = (email, password) => {
     }
   };
 };
+
 export const login = (email, password) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
       const userData = await AuthService.login(email, password);
-      dispatch(setAuth(true));
+      dispatch(setUser(userData?.data));
       localStorage.setItem('Token', userData.data.accessToken);
       dispatch(setModal(false));
     } catch (e) {
@@ -27,6 +29,7 @@ export const login = (email, password) => {
     }
   };
 };
+
 export const logout = () => {
   return async (dispatch) => {
     dispatch(setLoading(false));
@@ -46,9 +49,23 @@ export const checkAuth = () => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
-      const authData = await AuthService.checkAuth();
-      localStorage.setItem('Token', authData.data.accessToken);
-      dispatch(setAuth(true));
+      const userData = await AuthService.checkAuth();
+      localStorage.setItem('Token', userData.data.accessToken);
+      dispatch(setUser(userData?.data));
+    } catch (e) {
+      alert(e.response.data.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const changeInfo = (name, age, file) => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const userData = await AuthService.changeInfo(name, age, file);
+      dispatch(setUser(userData?.data));
     } catch (e) {
       alert(e.response.data.message);
     } finally {
