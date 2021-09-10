@@ -105,7 +105,7 @@ function AssortmentModal({ modal, handleClose, classes }) {
                     <Typography variant="body2">Загрузите изображение для категории</Typography>
                   )}
                 </Box>
-                <Button variant="contained" color="primary">
+                <Button className={classes.button} variant="contained" color="primary">
                   <label htmlFor="uploadImage" className={classes.label}>
                     {uploadFile.image ? <CheckIcon /> : <PhotoCamera />}
                   </label>

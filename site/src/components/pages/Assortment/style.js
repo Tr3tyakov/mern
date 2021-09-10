@@ -65,4 +65,7 @@ export const useStyles = makeStyles({
     height: '100px',
     background: '#3f51b5',
   },
+  button: {
+    padding: 0,
+  },
 });

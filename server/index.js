@@ -39,7 +39,6 @@ async function start() {
       useNewUrlParser: true,
       useCreateIndex: true,
     });
-
     app.listen(PORT, () => console.log(`SERVER HAS BEEN STARTED ON ${PORT}`));
   } catch (e) {
     console.log('Ошибка при старте сервера', e.message);

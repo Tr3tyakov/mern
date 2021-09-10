@@ -6,6 +6,7 @@ import { Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import { useStyles } from './style';
+import Welcome from '../Welcome/Welcome';
 function Home() {
   const classes = useStyles();
   const { email, password, isAuth, isLoading } = useSelector(({ authReducer }) => {
@@ -24,13 +25,7 @@ function Home() {
     );
   }
   return (
-    <Container>
-      {isAuth ? (
-        <Typography>Добро пожаловать</Typography>
-      ) : (
-        <AuthModal email={email} password={password} />
-      )}
-    </Container>
+    <Container>{isAuth ? <Welcome /> : <AuthModal email={email} password={password} />}</Container>
   );
 }
 

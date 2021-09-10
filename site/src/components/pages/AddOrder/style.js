@@ -7,7 +7,6 @@ export const useStyles = makeStyles({
   root: {
     maxWidth: 265,
     margin: '6px',
-    // padding: '10px',
   },
   media: {
     margin: 'auto',
@@ -22,6 +21,7 @@ export const useStyles = makeStyles({
   link: {
     textDecoration: 'none',
     width: '200px',
+    height: '100%',
   },
   flex: {
     display: 'flex',

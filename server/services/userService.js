@@ -39,6 +39,7 @@ class UserService {
 
     return { ...userDto, ...tokens };
   }
+
   async logout(refreshToken) {
     const check = await TokenService.deleteToken(refreshToken);
     return check;
@@ -49,7 +50,6 @@ class UserService {
       throw Error('Неправильный токен');
     }
     const checkToken = await TokenService.findToken(refreshToken);
-
     const verify = await TokenService.verifyRefreshToken(refreshToken);
 
     if (!checkToken || !verify) {

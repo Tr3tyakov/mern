@@ -101,12 +101,15 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     cursor: 'pointer',
     width: '100%',
-    height: '100%',
+    height: '35px',
   },
   imageCategory: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
+  },
+  button: {
+    padding: 0,
   },
 });
 

@@ -18,6 +18,7 @@ import CurrentOrderModal from './CurrentOrderModal';
 import Filters from './Filters';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
+
 function History() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -41,17 +42,28 @@ function History() {
 
   const filterOrders = React.useMemo(
     () =>
-      orders.filter((element) =>
-        orderNumber !== ''
-          ? element.order === +orderNumber
-          : startDate !== ''
-          ? new Date(element.data).getTime() > new Date(startDate).getTime()
-          : endDate !== ''
-          ? new Date(element.data).getTime() > new Date(startDate).getTime()
-          : orders,
-      ),
+      orders.filter((element) => (orderNumber !== '' ? element.order === +orderNumber : orders)),
     [orderNumber, orders, startDate, endDate],
   );
+
+  const filterOfTime = React.useMemo(
+    () =>
+      orders.filter(
+        (element) =>
+          new Date(element.data).getTime() >= new Date(startDate).getTime() &&
+          new Date(element.data).getTime() <= new Date(endDate).getTime(),
+      ),
+    [orders, startDate, endDate],
+  );
+  const changeSort = React.useMemo(() => {
+    if (startDate && endDate) {
+      return filterOfTime;
+    }
+    return filterOrders;
+  }, [filterOrders, startDate, endDate]);
+
+  console.log(changeSort);
+
   const filterContainer = () => {
     setFilter(!filter);
   };
@@ -92,7 +104,7 @@ function History() {
           <FilterListIcon />
         </Button>
       </div>
-      {filter ? (
+      {filter && (
         <Filters
           orderNumber={orderNumber}
           changeOrderNumber={changeOrderNumber}
@@ -101,8 +113,6 @@ function History() {
           endDate={endDate}
           changeEndDate={changeEndDate}
         />
-      ) : (
-        ''
       )}
       <TableContainer className={classes.tableContainer}>
         <Table className={classes.table}>
@@ -114,9 +124,8 @@ function History() {
               <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody className={classes.tbody}>
-            {filterOrders.map((element) => {
+            {changeSort.map((element) => {
               return (
                 <TableRow key={element._id}>
                   <TableCell component="th" scope="row">
@@ -143,11 +152,13 @@ function History() {
             })}
           </TableBody>
         </Table>
-        <div className={classes.more}>
-          <Button variant="outlined" color="primary" onClick={increaseSize}>
-            Еще
-          </Button>
-        </div>
+        {!orderNumber && (
+          <div className={classes.more}>
+            <Button variant="outlined" color="primary" onClick={increaseSize}>
+              Еще
+            </Button>
+          </div>
+        )}
       </TableContainer>
     </Container>
   );

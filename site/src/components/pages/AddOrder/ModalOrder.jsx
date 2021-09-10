@@ -32,7 +32,6 @@ function ModalOrder({ modal, setCloseModal, order, classes, count, cost, createO
                       <TableCell>Количество</TableCell>
                     </TableRow>
                   </TableHead>
-
                   <TableBody className={classes.tbody}>
                     {order.map((element) => {
                       return (
